@@ -9,7 +9,6 @@
     "dev": "nodemon"
   },
   "keywords": [
-    "xp-solutions",
     "nodejs",
     "typescript"
   ],
