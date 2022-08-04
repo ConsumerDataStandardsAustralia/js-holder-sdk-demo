@@ -1,0 +1,497 @@
+{
+	"info": {
+		"_postman_id": "4c2cefff-3dc7-4cae-8fff-cd8934b6617c",
+		"name": "MiddlewareDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8286723"
+	},
+	"item": [
+		{
+			"name": "Use Case: Invalid x-min-v header is provided, eg alpha character",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sadfasdfadsfsdf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "ertt",
+						"type": "text"
+					},
+					{
+						"key": "x-min-v",
+						"value": "2.4",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: No x-v header is provided in the request",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sadfasdfadsfsdf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-min-v",
+						"value": "2.4",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: Invalid x-v header is provided, eg alpha character",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sadfasdfadsfsdf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "wewer",
+						"type": "text"
+					},
+					{
+						"key": "x-min-v",
+						"value": "2.4",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: A requested version is not supported",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sadfasdfadsfsdf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "5",
+						"type": "text"
+					},
+					{
+						"key": "x-min-v",
+						"value": "3",
+						"type": "text"
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: Invalid x-fapi-interaction-id header is provided, ie not a GUID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sadfasdfadsfsdf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-min-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "1f9b94f6-3049-401f-bb71-e",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: No x-fapi-interaction-id header is provided",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sadfasdfadsfsdf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-min-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "1f9b94f6-3049-401f-bb71-e",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: x-fapi-interaction-id header in header is returned",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sadfasdfadsfsdf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-min-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "7e4233db-6938-438d-8689-7a8b1b46d977",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: Authorisation header is present, endpoint not implemented",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sadfasdfadsfsdf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-min-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "7e4233db-6938-438d-8689-7a8b1b46d977",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/energy/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"energy",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: Authorisation header is present, endpoint not is not a CDR endpoint",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "sadfasdfadsfsdf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-min-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "7e4233db-6938-438d-8689-7a8b1b46d977",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/banking/payments/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"banking",
+						"payments",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
