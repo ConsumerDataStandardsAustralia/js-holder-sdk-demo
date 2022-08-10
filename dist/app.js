@@ -18,9 +18,9 @@ var dsb_middleware_1 = require("dsb-middleware");
 var app = (0, express_1.default)();
 var port = 3000;
 // the endpoint configuration file fort this server
-var options = __spreadArray([], endpoints_json_1.default, true);
-app.use((0, dsb_middleware_1.cdrAuthorisation)(options));
-app.use((0, dsb_middleware_1.cdrHeaders)(options));
+var cdrOptions = __spreadArray([], endpoints_json_1.default, true);
+app.use((0, dsb_middleware_1.cdrAuthorisation)(cdrOptions));
+app.use((0, dsb_middleware_1.cdrHeaders)(cdrOptions));
 // this endpoint does NOT reequire authentication
 app.get('/energy/plans', function (req, res, next) {
     console.log("Received request on " + port);
@@ -30,6 +30,11 @@ app.get('/energy/plans', function (req, res, next) {
 app.get('/energy/accounts', function (req, res, next) {
     console.log("Received request on " + port);
     res.send();
+});
+// this endpoint requires authentication
+app.get('/banking/accounts/:accountId/balance', function (req, res, next) {
+    console.log("Received request on " + port + " for " + req.params.accountId);
+    res.send(req.params.accountId);
 });
 // this endpoint requires authentication
 app.get('/banking/payments/scheduled', function (req, res, next) {

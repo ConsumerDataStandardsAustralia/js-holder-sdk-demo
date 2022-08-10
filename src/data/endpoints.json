@@ -7,6 +7,12 @@
     },
     {
         "requestType": "GET",
+        "requestPath": "/banking/accounts/{accountId}/balance",
+        "minSupportedVersion": 3,
+        "maxSupportedVersion": 5
+    },
+    {
+        "requestType": "GET",
         "requestPath": "/energy/plans",
         "minSupportedVersion": 2,
         "maxSupportedVersion": 4
