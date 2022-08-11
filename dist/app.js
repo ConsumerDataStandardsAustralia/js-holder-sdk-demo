@@ -21,25 +21,36 @@ var port = 3000;
 var cdrOptions = __spreadArray([], endpoints_json_1.default, true);
 app.use((0, dsb_middleware_1.cdrAuthorisation)(cdrOptions));
 app.use((0, dsb_middleware_1.cdrHeaders)(cdrOptions));
+var standardsVersion = '/cds-au/v1';
 // this endpoint does NOT reequire authentication
-app.get('/energy/plans', function (req, res, next) {
-    console.log("Received request on " + port);
-    res.send();
+app.get(standardsVersion + "/energy/plans", function (req, res, next) {
+    var st = "Received request on " + port + " for " + req.url;
+    console.log(st);
+    res.send(st);
 });
 // this endpoint requires authentication
-app.get('/energy/accounts', function (req, res, next) {
-    console.log("Received request on " + port);
-    res.send();
+app.get(standardsVersion + "/energy/accounts", function (req, res, next) {
+    var st = "Received request on " + port + " for " + req.url;
+    console.log(st);
+    res.send(st);
 });
 // this endpoint requires authentication
-app.get('/banking/accounts/:accountId/balance', function (req, res, next) {
-    console.log("Received request on " + port + " for " + req.params.accountId);
-    res.send(req.params.accountId);
+app.get(standardsVersion + "/energy/accounts/:accountId", function (req, res, next) {
+    var st = "Received request on " + port + " for " + req.url;
+    console.log(st);
+    res.send(st);
 });
 // this endpoint requires authentication
-app.get('/banking/payments/scheduled', function (req, res, next) {
-    console.log("Received request on " + port);
-    res.send();
+app.get(standardsVersion + "/banking/accounts/:accountId/balance", function (req, res, next) {
+    var st = "Received request on " + port + " for " + req.url;
+    console.log(st);
+    res.send(st);
+});
+// this endpoint requires authentication
+app.get(standardsVersion + "/banking/payments/scheduled", function (req, res, next) {
+    var st = "Received request on " + port + " for " + req.url;
+    console.log(st);
+    res.send(st);
 });
 app.get('/', function (req, res, next) {
     console.log("Received request on BASE " + port);

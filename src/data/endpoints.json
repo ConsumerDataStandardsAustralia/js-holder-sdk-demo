@@ -97,7 +97,7 @@
     },
     {
         "requestType": "GET",
-        "requestPath": "/energy/accounts/{accountId}/balance",
+        "requestPath": "/energy/accounts/{12345}/balance",
         "minSupportedVersion": 1,
         "maxSupportedVersion": 1
     },

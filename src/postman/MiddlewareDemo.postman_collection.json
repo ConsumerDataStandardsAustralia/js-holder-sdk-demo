@@ -47,12 +47,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/energy/accounts",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/energy/accounts",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3000",
 					"path": [
 						"energy",
 						"accounts"
@@ -103,12 +101,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/energy/accounts",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/energy/accounts",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3000",
 					"path": [
 						"energy",
 						"accounts"
@@ -128,7 +124,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "sadfasdfadsfsdf",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -158,15 +154,68 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/energy/accounts",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/energy/accounts",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3000",
 					"path": [
 						"energy",
 						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: Test url parameter",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-min-v",
+						"value": "2.4",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/banking/accounts/12345/balance",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"banking",
+						"accounts",
+						"12345",
+						"balance"
 					]
 				}
 			},
@@ -183,7 +232,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "sadfasdfadsfsdf",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -212,12 +261,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/energy/accounts",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/energy/accounts",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3000",
 					"path": [
 						"energy",
 						"accounts"
@@ -237,7 +284,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "sadfasdfadsfsdf",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -265,12 +312,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/energy/accounts",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/energy/accounts",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3000",
 					"path": [
 						"energy",
 						"accounts"
@@ -290,7 +335,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "sadfasdfadsfsdf",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -319,12 +364,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/energy/accounts",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/energy/accounts",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3000",
 					"path": [
 						"energy",
 						"accounts"
@@ -344,7 +387,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "sadfasdfadsfsdf",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -372,12 +415,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/energy/accounts",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/energy/accounts",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3000",
 					"path": [
 						"energy",
 						"accounts"
@@ -397,7 +438,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "sadfasdfadsfsdf",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -425,14 +466,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/energy/accounts",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/banking/accounts",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3000",
 					"path": [
-						"energy",
+						"banking",
 						"accounts"
 					]
 				}
@@ -450,7 +489,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "sadfasdfadsfsdf",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -478,12 +517,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/banking/payments/accounts",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/banking/payments/accounts",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "3000",
 					"path": [
 						"banking",
 						"payments",
@@ -492,6 +529,69 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Use Case: Authorisation header is NOT present",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/energy/accounts",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"energy",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "accessToken",
+			"value": "eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJ1c2VyIiwicmVmcmVzaF90b2tlbl9leHBpcmVzX2F0IjoxODg0ODYzMzU1LCJhenAiOiJjbGllbnQiLCJzY29wZSI6ImJhbms6YWNjb3VudHMuZGV0YWlsOnJlYWQgYmFuazphY2NvdW50cy5iYXNpYzpyZWFkIGFkZHJlc3Mgb3BlbmlkIGNvbW1vbjpjdXN0b21lci5kZXRhaWw6cmVhZCBiYW5rOnRyYW5zYWN0aW9uczpyZWFkIHByb2ZpbGUgY29tbW9uOmN1c3RvbWVyLmJhc2ljOnJlYWQgYmFuazpyZWd1bGFyX3BheW1lbnRzOnJlYWQgYmFuazpwYXllZXM6cmVhZCBlbmVyZ3k6YmlsbGluZzpyZWFkIGVuZXJneTphY2NvdW50cy5jb25jZXNzaW9uczpyZWFkIGVuZXJneTphY2NvdW50cy5iYXNpYzpyZWFkIGVuZXJneTphY2NvdW50cy5kZXRhaWw6cmVhZCBlbmVyZ3k6YWNjb3VudHMucGF5bWVudHNjaGVkdWxlOnJlYWQgZW5lcmd5OmVsZWN0cmljaXR5LmRlcjpyZWFkIGVuZXJneTplbGVjdHJpY2l0eS5zZXJ2aWNlcG9pbnRzLmJhc2ljOnJlYWQgZW5lcmd5OmVsZWN0cmljaXR5LnNlcnZpY2Vwb2ludHMuZGV0YWlsOnJlYWQgZW5lcmd5OmVsZWN0cmljaXR5LnVzYWdlOnJlYWQgcGhvbmUgb2ZmbGluZV9hY2Nlc3MgZW1haWwiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvY2RzLW9wZW5pZC1jb25uZWN0LXNlcnZlci8iLCJleHAiOjE4ODQ4NTY5NTUsImlhdCI6MTg4NDg1MzM1NSwianRpIjoiODBmNDliMWUtNGUzNS00YzViLWI5YTctOGEwZTg4ZTMzMmFiIn0.Oj6iOrrIWicXz8ZU5Fe_tmX19ee-7Z7YaNOZLYje_9CGVyJ8sW7940dtOuuAIH-TmwZ_mNA8Mb4q_5Mska01sYG7IBNo2vNlvyBF-G50LkIrSwj9eGwxLJ20fqpJ5oSyQ9b320bNJm4TBSXpZPvuuwb8OLiKp5NDCYzcdc1PNTOqczLo8fEEdvkYAF4UQpRKYxfR402vwsCNtDdjRz4rP6Ck-6rpPvy0uNKTOjlIEzadpTEWqzOth1yqPuagEKzq0P6VSeGj-ubFo_pRfMNDo5N497qpdUIC4eVM_r2a3Wmn0mTcZ7zq3P-ZK4njlGJFVX9YSrRZ0MgkBMsBR50wIA",
+			"type": "string"
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/cds-au/v1",
+			"type": "string"
 		}
 	]
 }

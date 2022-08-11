@@ -23,7 +23,8 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "dsb-middleware": "file:/../dsb-middleware"
+    "@types/consumer-data-standards": "^3.0.0",
+    "dsb-middleware": "file:../dsb-middleware",
+    "express": "^4.17.1"
   }
 }
