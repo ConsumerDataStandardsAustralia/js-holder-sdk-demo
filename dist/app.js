@@ -15,11 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var endpoints_json_1 = __importDefault(require("./data/endpoints.json"));
 var dsb_middleware_1 = require("dsb-middleware");
+var body_parser_1 = __importDefault(require("body-parser"));
 var app = (0, express_1.default)();
 var port = 3000;
 // the endpoint configuration file fort this server
 var cdrOptions = __spreadArray([], endpoints_json_1.default, true);
 app.use((0, dsb_middleware_1.cdrAuthorisation)(cdrOptions));
+app.use(body_parser_1.default.json());
 app.use((0, dsb_middleware_1.cdrHeaders)(cdrOptions));
 var standardsVersion = '/cds-au/v1';
 // this endpoint does NOT reequire authentication
@@ -36,6 +38,11 @@ app.get(standardsVersion + "/energy/accounts", function (req, res, next) {
 });
 // this endpoint requires authentication
 app.get(standardsVersion + "/energy/accounts/:accountId", function (req, res, next) {
+    var st = "Received request on " + port + " for " + req.url;
+    console.log(st);
+    res.send(st);
+});
+app.post(standardsVersion + "/energy/electricity/servicepoints/usage", function (req, res, next) {
     var st = "Received request on " + port + " for " + req.url;
     console.log(st);
     res.send(st);

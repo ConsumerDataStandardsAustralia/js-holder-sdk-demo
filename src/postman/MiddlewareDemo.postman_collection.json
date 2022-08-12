@@ -17,7 +17,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "sadfasdfadsfsdf",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -70,7 +70,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "sadfasdfadsfsdf",
+							"value": "{{accessToken}}",
 							"type": "string"
 						}
 					]
@@ -108,6 +108,60 @@
 					"path": [
 						"energy",
 						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: No Authorisation required",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-min-v",
+						"value": "2.4",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-fapi-interaction-id",
+						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/energy/plans",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"energy",
+						"plans"
 					]
 				}
 			},
@@ -546,6 +600,80 @@
 					"path": [
 						"energy",
 						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case: Authorisation header is present - NOT authorized (invalid scope)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJQUzI1NiIsImtpZCI6IjdDNTcxNjU1M0U5QjEzMkVGMzI1QzQ5Q0EyMDc5NzM3MTk2QzAzREIiLCJ4NXQiOiJmRmNXVlQ2YkV5N3pKY1Njb2dlWE54bHNBOXMiLCJ0eXAiOiJhdCtqd3QifQ.eyJuYmYiOjE2NTgzNjQzOTcsImV4cCI6MTY1ODQ1MDc5NywiaXNzIjoiaHR0cHM6Ly9tb2NrLWRhdGEtaG9sZGVyLWVuZXJneTo4MTAxIiwiYXVkIjoiY2RzLWF1IiwiY2xpZW50X2lkIjoiNDJkNTdhYTYtYmY2Yi00OWQ0LWJiNGUtYTRmZjFkZDUxYzlhIiwiYXV0aF90aW1lIjoxNjU4MzY0Mzk3LCJpZHAiOiJsb2NhbCIsImNkcl9hcnJhbmdlbWVudF9pZCI6ImE5MGE4M2QyLWYyMDItNDY0Ni1iZWY0LTM3OTlhM2U4ZTk0MCIsImp0aSI6ImMtMk1hS25zY2laV2lEX21paGV5Z0EiLCJzb2Z0d2FyZV9pZCI6ImM2MzI3Zjg3LTY4N2EtNDM2OS05OWE0LWVhYWNkM2JiODIxMCIsInNlY3Rvcl9pZGVudGlmaWVyX3VyaSI6Im1vY2stZGF0YS1yZWNpcGllbnQiLCJhY2NvdW50X2lkIjoianVoSTVmYjNXRlVQJTJGZEJmaXgyWEZEVjFrOGpsZER6cE5aYVVkaFcyNlBvNk12RVhxRmZYazVzbnVCN0RpMEhxIiwic3ViIjoicEF2YklpNC8vcGY5ZXIwMkxReG14eWx0UTRlcGduY0FPSFM2UmlmYXo5MVVXakVJOS9QQlJwdlk5SlNGaGhMZSIsImNuZiI6eyJ4NXQjUzI1NiI6IjcxNUNERDA0RkY3MzMyQ0NEQTc0Q0RGOUZCRUQxNkJFQkE1REQ3NDQifSwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsImNkcjpyZWdpc3RyYXRpb24iLCJlbmVyZ3k6YWNjb3VudHMuYmFzaWM6cmVhZCIsImVuZXJneTphY2NvdW50cy5jb25jZXNzaW9uczpyZWFkIiwiY29tbW9uOmN1c3RvbWVyLmJhc2ljOnJlYWQiXSwiYW1yIjpbInB3ZCJdfQ.hYelgGH6LgjxSyMmWS9YMPdX1CAloTXWhL9I9jLHmGY39PoM15HaIZaw1anb1uvwxv9hTf8ZucFDPbe9dObKmu6_7p9C8T7ujE9zAC9acHJ936pC2oHTTLRlUJQRuW4K_Jo7xIJn6bw4GOdsg8eH_yzdd37i7PTp78Kk3oOm5Ln4fpgnwQzFiZMict-Y99kHRP7ZKkq8fzVe1zgq66fXcjMMTgT8agRjr0zokJR3cb9fJnOd0FROk5nPGSf8413gmmwZ1h1WrEoWKPnUCYo2SD2JphN1Co5BhLHUTRmFTxGh8MqBSWOyVUBQfxM3E-c8wEARnmOQAA6DW4YaJ1fC0CzVmBrZH2X4OMYa0SQ-zpXgRAolRZ4nAkMdHe1AqB2rVmTATe-qxrhDLiIWgJl0wX6Uf39WLFTWZpogfajInWJUsUfbKTdpufEozGpdY36xb6hrFN9HFlob1KmtUcm5SiZSA-dGvyKQxyD4sXXX3rTuB-tqF8foZZzzOvxL5vMy",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/energy/electricity/servicepoints",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"energy",
+						"electricity",
+						"servicepoints"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case - Test for invalid media type",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-v",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/energy/accounts/balances",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"energy",
+						"accounts",
+						"balances"
 					]
 				}
 			},

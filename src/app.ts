@@ -3,6 +3,7 @@ import endpoints from './data/endpoints.json';
 import {cdrHeaders, cdrAuthorisation}  from 'dsb-middleware'
 import { EndpointConfig } from 'dsb-middleware/src/models/endpoint-config';
 import { ResponseErrorListV2 } from 'consumer-data-standards/common';
+import bodyParser from 'body-parser';
 
 
 const app = express();
@@ -12,7 +13,9 @@ const port = 3000;
 const cdrOptions = [...endpoints] as EndpointConfig[];
 
 app.use(cdrAuthorisation(cdrOptions));
+app.use(bodyParser.json())
 app.use(cdrHeaders(cdrOptions));
+
 
 let standardsVersion = '/cds-au/v1';
 
@@ -37,6 +40,11 @@ app.get(`${standardsVersion}/energy/accounts/:accountId`, (req, res, next) => {
     res.send(st);
 });
 
+app.post(`${standardsVersion}/energy/electricity/servicepoints/usage`, (req, res, next) => {
+    let st = `Received request on ${port} for ${req.url}`;
+    console.log(st);
+    res.send(st);
+});
 
 // this endpoint requires authentication
 app.get(`${standardsVersion}/banking/accounts/:accountId/balance`, (req, res, next) => {
