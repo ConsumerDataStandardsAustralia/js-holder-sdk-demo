@@ -639,45 +639,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "Use Case - Test for invalid media type",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{accessToken}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{}"
-				},
-				"url": {
-					"raw": "{{baseUrl}}/energy/accounts/balances",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"energy",
-						"accounts",
-						"balances"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"auth": {

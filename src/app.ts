@@ -1,60 +1,73 @@
-import express from 'express';
+import express, { request }  from 'express';
+import {NextFunction, Request, Response} from 'express';
 import endpoints from './data/endpoints.json';
-import {cdrHeaders, cdrAuthorisation}  from 'dsb-middleware'
-import { EndpointConfig } from 'dsb-middleware/src/models/endpoint-config';
-import { ResponseErrorListV2 } from 'consumer-data-standards/common';
+import {cdrHeaders, cdrAuthorisation, cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig}  from 'dsb-middleware'
 import bodyParser from 'body-parser';
 
 
+const exp = express;
 const app = express();
 const port = 3000;
 
 // the endpoint configuration file fort this server
-const cdrOptions = [...endpoints] as EndpointConfig[];
+const dsbEndpoints = [...endpoints] as EndpointConfig[];
 
-app.use(cdrAuthorisation(cdrOptions));
-app.use(bodyParser.json())
-app.use(cdrHeaders(cdrOptions));
+
+const authOptions: DsbAuthConfig = {
+    scopeFormat: 'STRING',
+    endpoints: dsbEndpoints
+}
+
+const dsbOptions: CdrConfig = {
+    endpoints: dsbEndpoints
+}
+
+//app.use(exp.json());
+//app.use(cdrJwtScopesListSeparated);
+app.use(bodyParser);
+app.use(cdrJwtScopes(authOptions));
+app.use(cdrAuthorisation(dsbOptions));
+app.use(cdrHeaders(dsbOptions));
 
 
 let standardsVersion = '/cds-au/v1';
 
 // this endpoint does NOT reequire authentication
-app.get(`${standardsVersion}/energy/plans`, (req, res, next) => {
+app.get(`${standardsVersion}/energy/plans`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
 });
 
 // this endpoint requires authentication
-app.get(`${standardsVersion}/energy/accounts`, (req, res, next) => {
+app.get(`${standardsVersion}/energy/accounts`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
 });
 
 // this endpoint requires authentication
-app.get(`${standardsVersion}/energy/accounts/:accountId`, (req, res, next) => {
+app.get(`${standardsVersion}/energy/accounts/:accountId`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
 });
 
-app.post(`${standardsVersion}/energy/electricity/servicepoints/usage`, (req, res, next) => {
-    let st = `Received request on ${port} for ${req.url}`;
-    console.log(st);
-    res.send(st);
-});
-
-// this endpoint requires authentication
-app.get(`${standardsVersion}/banking/accounts/:accountId/balance`, (req, res, next) => {
+app.post(`${standardsVersion}/energy/electricity/servicepoints/usage`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
 });
 
 // this endpoint requires authentication
-app.get(`${standardsVersion}/banking/payments/scheduled`, (req, res, next) => {
+app.get(`${standardsVersion}/banking/accounts/:accountId/balance`, (req: Request, res: Response, next: NextFunction) => {
+    let st = `Received request on ${port} for ${req.url}`;
+    console.log(st);
+    res.send(st);
+});
+
+// this endpoint requires authentication
+app.get(`${standardsVersion}/banking/payments/scheduled`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
