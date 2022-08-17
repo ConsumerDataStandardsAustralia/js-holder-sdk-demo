@@ -15,26 +15,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var endpoints_json_1 = __importDefault(require("./data/endpoints.json"));
 var dsb_middleware_1 = require("dsb-middleware");
-var body_parser_1 = __importDefault(require("body-parser"));
 var exp = express_1.default;
 var app = (0, express_1.default)();
 var port = 3000;
+var standardsVersion = '/cds-au/v1';
 // the endpoint configuration file fort this server
 var dsbEndpoints = __spreadArray([], endpoints_json_1.default, true);
+// Used in cdrJwtScopes. This configuration is specific to the DSB mock data holder
+// ie access token is JWT and scope in that token is a space delimited string
 var authOptions = {
     scopeFormat: 'STRING',
     endpoints: dsbEndpoints
 };
+// Used cdrAuthorisation and cdrHeaders. 
 var dsbOptions = {
     endpoints: dsbEndpoints
 };
-//app.use(exp.json());
-//app.use(cdrJwtScopesListSeparated);
-app.use(body_parser_1.default);
+// This middle ware will extend the request object with the scopes.
+// It can be used for any IDAM where the access token is a JWT and the 
+// scope property is either an array of string or a space seperated string
 app.use((0, dsb_middleware_1.cdrJwtScopes)(authOptions));
+// This middle ware will check access tokens for existence and scope
 app.use((0, dsb_middleware_1.cdrAuthorisation)(dsbOptions));
+// this middle ware will handle the boilerplate validation and setting for a number of header parameters
 app.use((0, dsb_middleware_1.cdrHeaders)(dsbOptions));
-var standardsVersion = '/cds-au/v1';
 // this endpoint does NOT reequire authentication
 app.get(standardsVersion + "/energy/plans", function (req, res, next) {
     var st = "Received request on " + port + " for " + req.url;

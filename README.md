@@ -20,16 +20,25 @@ conformance, or compliance purposes.
 
 ## How to use
 
-Clone the the dsb-middleware project
-Clone this project
-The two project must be on the same directory hierachy level
+This is a simple NodeJS server implementation which utilises the middleware functions exposed by  
+[dsb-middleware](https://github.com/ConsumerDataStandardsAustralia/dsb-middleware) package.
 
-Build the dsb-midlleware project (refer to that project)
-Build this project 
-From the root run `tsc`
-Navigate to the distribution directory `cd dist` abd then run this demo `node app.js`
-This will now run a NodeJS app which used the dsb-middleware
+It demonstrate how different client request will trigger the generation of error objects and Http return code where this is required under published technical [standard](https://github.com/ConsumerDataStandardsAustralia/standards)
 
-Example:
-Use Postman and sens GET request to `http://localhost`
-Try this with an x-v header and without. The former will return a CDS compliant error
+The `endpoints.json` file used in the configuration options `dsbOptions` and `authOptions` lists which endpoints this server implements.
+
+This implementation assumes the access token is a JWT and the scopes within that token is a space separated string. This allows the use of `cdrJwtScopes` and requires this configuration 
+
+````
+const authOptions: DsbAuthConfig = {
+    scopeFormat: 'STRING',
+    endpoints: dsbEndpoints,
+}
+````
+
+Build this project with `npm run build`
+Run this project with `npm start`
+
+
+
+The Postman collection has some examples for common scenarios, eg invalid header. This collection exists to demonstrate functionality.
