@@ -37,8 +37,8 @@ const authOptions: DsbAuthConfig = {
 ````
 
 Build this project with `npm run build`
-Run this project with `npm start`
 
+Run this project with `npm start`
 
 
 The Postman collection has some examples for common scenarios, eg invalid header. This collection exists to demonstrate functionality.

@@ -32,7 +32,7 @@ const dsbOptions: CdrConfig = {
 // This middle ware will extend the request object with the scopes.
 // It can be used for any IdAM where the access token is a JWT and the 
 // scope property is either an array of string or a space separated string
-app.use(cdrJwtScopes(authOptions));
+  app.use(cdrJwtScopes(authOptions));
 
 // This middle ware will check access tokens for existence and scope
 app.use(cdrAuthorisation(dsbOptions));
@@ -56,6 +56,14 @@ app.get(`${standardsVersion}/energy/accounts`, (req: Request, res: Response, nex
 });
 
 // this endpoint requires authentication
+app.get(`${standardsVersion}/energy/electricity/servicepoints`, (req: Request, res: Response, next: NextFunction) => {
+    let st = `Received request on ${port} for ${req.url}`;
+    console.log(st);
+    res.send(st);
+});
+
+
+// this endpoint requires authentication
 app.get(`${standardsVersion}/energy/accounts/:accountId`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
@@ -72,6 +80,13 @@ app.get(`${standardsVersion}/banking/accounts/:accountId/balance`, (req: Request
 
 // this endpoint requires authentication
 app.get(`${standardsVersion}/banking/payments/scheduled`, (req: Request, res: Response, next: NextFunction) => {
+    let st = `Received request on ${port} for ${req.url}`;
+    console.log(st);
+    res.send(st);
+});
+
+// this endpoint requires authentication
+app.get(`${standardsVersion}/banking/payees`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
