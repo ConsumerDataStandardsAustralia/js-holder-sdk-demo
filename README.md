@@ -21,7 +21,7 @@ conformance, or compliance purposes.
 ## How to use
 
 This is a simple NodeJS server implementation which utilises the middleware functions exposed by  
-[dsb-middleware](https://github.com/ConsumerDataStandardsAustralia/dsb-middleware) package.
+[cdr-helper](https://github.com/ConsumerDataStandardsAustralia/cdr-helper) package.
 
 It demonstrate how different client request will trigger the generation of error objects and Http return code where this is required under published technical [standard](https://github.com/ConsumerDataStandardsAustralia/standards)
 
@@ -39,6 +39,5 @@ const authOptions: DsbAuthConfig = {
 Build this project with `npm run build`
 
 Run this project with `npm start`
-
 
 The Postman collection has some examples for common scenarios, eg invalid header. This collection exists to demonstrate functionality.
