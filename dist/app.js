@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var endpoints_json_1 = __importDefault(require("./data/endpoints.json"));
-var dsb_middleware_1 = require("dsb-middleware");
+var cdr_helper_1 = require("@cds-au/cdr-helper");
 var exp = express_1.default;
 var app = (0, express_1.default)();
 var port = 3000;
@@ -26,25 +26,25 @@ var standardsVersion = '/cds-au/v1';
 //          const dsbOptions: CdrConfig = {
 //              endpoints: DefaultBankingEndpoints
 //          }
-var dsbEndpoints = __spreadArray([], endpoints_json_1.default, true);
+var sampleEndpoints = __spreadArray([], endpoints_json_1.default, true);
 // Used in cdrJwtScopes. This configuration assumes that the IdAM issues a JWT
 // ie access token is JWT and scope in that token is a space delimited string
 var authOptions = {
     scopeFormat: 'STRING',
-    endpoints: dsbEndpoints,
+    endpoints: sampleEndpoints,
 };
 // Used in the cdrAuthorisation and cdrHeaders functions. 
 var dsbOptions = {
-    endpoints: dsbEndpoints
+    endpoints: sampleEndpoints
 };
 // This middle ware will extend the request object with the scopes.
 // It can be used for any IdAM where the access token is a JWT and the 
 // scope property is either an array of string or a space separated string
-app.use((0, dsb_middleware_1.cdrJwtScopes)(authOptions));
+app.use((0, cdr_helper_1.cdrJwtScopes)(authOptions));
 // This middle ware will check access tokens for existence and scope
-app.use((0, dsb_middleware_1.cdrAuthorisation)(dsbOptions));
+app.use((0, cdr_helper_1.cdrTokenValidator)(dsbOptions));
 // this middle ware will handle the boilerplate validation and setting for a number of header parameters
-app.use((0, dsb_middleware_1.cdrHeaders)(dsbOptions));
+app.use((0, cdr_helper_1.cdrHeaderValidator)(dsbOptions));
 // this endpoint does NOT reequire authentication
 app.get(standardsVersion + "/energy/plans", function (req, res, next) {
     var st = "Received request on " + port + " for " + req.url;

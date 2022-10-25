@@ -1,7 +1,7 @@
 {
-  "name": "basic-app",
+  "name": "cdr-helper-demo",
   "version": "1.0.0",
-  "description": "A basic NodeJS project in Typescript",
+  "description": "A demo app to demonstrate how to use the @cds-au/cdr-helper function ",
   "main": "./app.js",
   "scripts": {
     "start": "tsc && node ./dist/app.js",
@@ -14,7 +14,7 @@
     "typescript"
   ],
   "author": "Tomas Schier",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/express": "^4.17.13",
     "nodemon": "^2.0.13",
@@ -27,7 +27,7 @@
     "@types/consumer-data-standards": "^3.0.0",
     "@types/express-serve-static-core": "^4.17.30",
     "body-parser": "^1.20.0",
-    "dsb-middleware": "file:../dsb-middleware",
+    "@cds-au/cdr-helper": "file:../dsb-middleware",
     "express": "^4.17.1"
   }
 }
