@@ -1,7 +1,7 @@
 import express, { request }  from 'express';
 import {NextFunction, Request, Response} from 'express';
 import endpoints from './data/endpoints.json';
-import {cdrHeaders, cdrAuthorisation, cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig}  from 'dsb-middleware'
+import {cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig, DefaultBankingEndpoints, cdrTokenValidator, cdrHeaderValidator}  from '@cds-au/cdr-helper'
 
 const exp = express;
 const app = express();
@@ -15,30 +15,30 @@ let standardsVersion = '/cds-au/v1';
 //          const dsbOptions: CdrConfig = {
 //              endpoints: DefaultBankingEndpoints
 //          }
-const dsbEndpoints = [...endpoints] as EndpointConfig[];
+const sampleEndpoints = [...endpoints] as EndpointConfig[];
 
 // Used in cdrJwtScopes. This configuration assumes that the IdAM issues a JWT
 // ie access token is JWT and scope in that token is a space delimited string
 const authOptions: DsbAuthConfig = {
     scopeFormat: 'STRING',
-    endpoints: dsbEndpoints,
+    endpoints: sampleEndpoints,
 }
 
 // Used in the cdrAuthorisation and cdrHeaders functions. 
 const dsbOptions: CdrConfig = {
-    endpoints: dsbEndpoints
+    endpoints: sampleEndpoints
 }
 
 // This middle ware will extend the request object with the scopes.
 // It can be used for any IdAM where the access token is a JWT and the 
 // scope property is either an array of string or a space separated string
-  app.use(cdrJwtScopes(authOptions));
+app.use(cdrJwtScopes(authOptions));
 
 // This middle ware will check access tokens for existence and scope
-app.use(cdrAuthorisation(dsbOptions));
+app.use(cdrTokenValidator(dsbOptions));
 
 // this middle ware will handle the boilerplate validation and setting for a number of header parameters
-app.use(cdrHeaders(dsbOptions));
+app.use(cdrHeaderValidator(dsbOptions));
 
 
 // this endpoint does NOT reequire authentication
@@ -98,4 +98,6 @@ app.get('/', (req, res, next) => {
 });
 
 
-app.listen(port)
+app.listen(port);
+
+
