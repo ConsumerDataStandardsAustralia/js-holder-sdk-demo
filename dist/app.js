@@ -14,10 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var endpoints_json_1 = __importDefault(require("./data/endpoints.json"));
-var cdr_helper_1 = require("@cds-au/cdr-helper");
+var holder_sdk_1 = require("@cds-au/holder-sdk");
 var exp = express_1.default;
 var app = (0, express_1.default)();
 var port = 3000;
+var hostname = '127.0.0.1';
 var standardsVersion = '/cds-au/v1';
 // the endpoint configuration file fort this server, which endpoints does this server implement
 // The dsb-middleware also has constants for DefaultBankingEndpoints and DefaultEnergyEndpoints
@@ -40,11 +41,11 @@ var dsbOptions = {
 // This middle ware will extend the request object with the scopes.
 // It can be used for any IdAM where the access token is a JWT and the 
 // scope property is either an array of string or a space separated string
-app.use((0, cdr_helper_1.cdrJwtScopes)(authOptions));
+app.use((0, holder_sdk_1.cdrJwtScopes)(authOptions));
 // This middle ware will check access tokens for existence and scope
-app.use((0, cdr_helper_1.cdrTokenValidator)(dsbOptions));
+app.use((0, holder_sdk_1.cdrTokenValidator)(dsbOptions));
 // this middle ware will handle the boilerplate validation and setting for a number of header parameters
-app.use((0, cdr_helper_1.cdrHeaderValidator)(dsbOptions));
+app.use((0, holder_sdk_1.cdrHeaderValidator)(dsbOptions));
 // this endpoint does NOT reequire authentication
 app.get(standardsVersion + "/energy/plans", function (req, res, next) {
     var st = "Received request on " + port + " for " + req.url;
@@ -91,5 +92,8 @@ app.get('/', function (req, res, next) {
     console.log("Received request on BASE " + port);
     res.send();
 });
-app.listen(port);
+app.listen(port, hostname, function () {
+    console.log("Server running at http://" + hostname + ":" + port + "/");
+    console.log('Listening for requests....');
+});
 //# sourceMappingURL=app.js.map

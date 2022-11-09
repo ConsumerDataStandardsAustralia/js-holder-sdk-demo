@@ -1,11 +1,12 @@
 import express, { request }  from 'express';
 import {NextFunction, Request, Response} from 'express';
 import endpoints from './data/endpoints.json';
-import {cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig, DefaultBankingEndpoints, cdrTokenValidator, cdrHeaderValidator}  from '@cds-au/cdr-helper'
+import {cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig, DefaultBankingEndpoints, cdrTokenValidator, cdrHeaderValidator}  from '@cds-au/holder-sdk'
 
 const exp = express;
 const app = express();
 const port = 3000;
+const hostname = '127.0.0.1';
 let standardsVersion = '/cds-au/v1';
 
 // the endpoint configuration file fort this server, which endpoints does this server implement
@@ -98,6 +99,9 @@ app.get('/', (req, res, next) => {
 });
 
 
-app.listen(port);
+app.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
+    console.log('Listening for requests....');
+});
 
 

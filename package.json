@@ -1,7 +1,7 @@
 {
-  "name": "cdr-helper-demo",
+  "name": "holder-sdk-demo",
   "version": "1.0.0",
-  "description": "A demo app to demonstrate how to use the @cds-au/cdr-helper function ",
+  "description": "A demo app to demonstrate how to use the @cds-au/holder-sdk function ",
   "main": "./app.js",
   "scripts": {
     "start": "tsc && node ./dist/app.js",
@@ -24,10 +24,10 @@
   },
   "dependencies": {
     "@types/body-parser": "^1.19.2",
-    "@types/consumer-data-standards": "^3.0.0",
+    "@types/consumer-data-standards": "^4.0.0",
     "@types/express-serve-static-core": "^4.17.30",
     "body-parser": "^1.20.0",
-    "@cds-au/cdr-helper": "file:../dsb-middleware",
+    "@cds-au/holder-sdk": "file:../dsb-middleware",
     "express": "^4.17.1"
   }
 }
