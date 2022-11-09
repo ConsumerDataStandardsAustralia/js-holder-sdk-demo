@@ -1,4 +1,4 @@
-# JS Holder SDK  Demo
+# Holder SDK  Demo
 
 ## Disclaimer
 
