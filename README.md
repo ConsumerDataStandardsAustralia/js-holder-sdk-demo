@@ -42,3 +42,4 @@ Run this project with `npm start`
 
 The Postman collection `/src/MiddlewareDemo.postman_collection.json` has some examples for common scenarios, eg invalid header. This collection exists to demonstrate functionality.
 
+*Note: This demo project was tested with NodeJS  v18.7.0*
