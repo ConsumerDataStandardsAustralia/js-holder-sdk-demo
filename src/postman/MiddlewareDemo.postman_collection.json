@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4c2cefff-3dc7-4cae-8fff-cd8934b6617c",
+		"_postman_id": "f2411fb5-2f9a-4fe2-b38f-066a1e9bbd2f",
 		"name": "MiddlewareDemo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "8286723"
@@ -26,14 +26,13 @@
 				"header": [
 					{
 						"key": "x-v",
-						"value": "ertt",
+						"value": "1",
 						"type": "text"
 					},
 					{
 						"key": "x-min-v",
 						"value": "2.4",
-						"type": "text",
-						"disabled": true
+						"type": "text"
 					},
 					{
 						"key": "x-fapi-interaction-id",
@@ -108,60 +107,6 @@
 					"path": [
 						"energy",
 						"accounts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case: No Authorisation required",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{accessToken}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "x-min-v",
-						"value": "2.4",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{baseUrl}}/energy/plans",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"energy",
-						"plans"
 					]
 				}
 			},
