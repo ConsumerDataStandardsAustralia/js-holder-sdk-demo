@@ -49,14 +49,42 @@ app.use((0, holder_sdk_1.cdrHeaderValidator)(dsbOptions));
 // this endpoint does NOT reequire authentication
 app.get(standardsVersion + "/energy/plans", function (req, res, next) {
     var st = "Received request on " + port + " for " + req.url;
-    console.log(st);
-    res.send(st);
+    var links = {
+        self: "" + req.url
+    };
+    var meta = {
+        totalPages: 0,
+        totalRecords: 0
+    };
+    var payload = {
+        data: {
+            plans: []
+        },
+        links: links,
+        meta: meta
+    };
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 // this endpoint requires authentication
 app.get(standardsVersion + "/energy/accounts", function (req, res, next) {
     var st = "Received request on " + port + " for " + req.url;
-    console.log(st);
-    res.send(st);
+    var links = {
+        self: "" + req.url
+    };
+    var meta = {
+        totalPages: 0,
+        totalRecords: 0
+    };
+    var payload = {
+        data: {
+            plans: []
+        },
+        links: links,
+        meta: meta
+    };
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 // this endpoint requires authentication
 app.get(standardsVersion + "/energy/electricity/servicepoints", function (req, res, next) {
