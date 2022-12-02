@@ -2,7 +2,8 @@ import express, { request }  from 'express';
 import {NextFunction, Request, Response} from 'express';
 import endpoints from './data/endpoints.json';
 import {cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig, DefaultBankingEndpoints, cdrTokenValidator, cdrHeaderValidator}  from '@cds-au/holder-sdk'
-import { EnergyAccountListResponseV2, EnergyPlanListResponse, LinksPaginated, MetaPaginated } from 'consumer-data-standards/energy';
+import { EnergyAccountDetail, EnergyAccountDetailResponseV2, EnergyAccountListResponseV2, EnergyPlanListResponse, EnergyServicePointListResponse, Links, LinksPaginated, Meta, MetaPaginated } from 'consumer-data-standards/energy';
+import { ResponseBankingAccountsBalanceById, ResponseBankingPayeeListV2, ResponseBankingScheduledPaymentsList } from 'consumer-data-standards/banking';
 
 const exp = express;
 const app = express();
@@ -45,7 +46,6 @@ app.use(cdrHeaderValidator(dsbOptions));
 
 // this endpoint does NOT reequire authentication
 app.get(`${standardsVersion}/energy/plans`, (req: Request, res: Response, next: NextFunction) => {
-    let st = `Received request on ${port} for ${req.url}`;
     let links: LinksPaginated = {
         self: `${req.url}`
     }
@@ -66,7 +66,6 @@ app.get(`${standardsVersion}/energy/plans`, (req: Request, res: Response, next: 
 
 // this endpoint requires authentication
 app.get(`${standardsVersion}/energy/accounts`, (req: Request, res: Response, next: NextFunction) => {
-    let st = `Received request on ${port} for ${req.url}`;
     let links: LinksPaginated = {
         self: `${req.url}`
     }
@@ -85,39 +84,106 @@ app.get(`${standardsVersion}/energy/accounts`, (req: Request, res: Response, nex
 
 // this endpoint requires authentication
 app.get(`${standardsVersion}/energy/electricity/servicepoints`, (req: Request, res: Response, next: NextFunction) => {
-    let st = `Received request on ${port} for ${req.url}`;
-    console.log(st);
-    res.send(st);
+    let links: LinksPaginated = {
+        self: `${req.url}`
+    }
+    let meta: MetaPaginated = {
+        totalPages: 0,
+        totalRecords: 0
+    }
+    let payload : EnergyServicePointListResponse = {
+        data: {
+            servicePoints: []
+        },
+        links: links,
+        meta: meta
+    }
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 
 
 // this endpoint requires authentication
 app.get(`${standardsVersion}/energy/accounts/:accountId`, (req: Request, res: Response, next: NextFunction) => {
-    let st = `Received request on ${port} for ${req.url}`;
-    console.log(st);
-    res.send(st);
+    let links: Links = {
+        self: `${req.url}`
+    }
+    let meta: Meta = {
+    }
+    let detail: EnergyAccountDetail = {
+        plans: [],
+        accountId: '',
+        creationDate: ''
+    }
+    let payload : EnergyAccountDetailResponseV2 = {
+        data: detail,
+        links: links,
+        meta: meta
+    }
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 
 
 // this endpoint requires authentication
 app.get(`${standardsVersion}/banking/accounts/:accountId/balance`, (req: Request, res: Response, next: NextFunction) => {
-    let st = `Received request on ${port} for ${req.url}`;
-    console.log(st);
-    res.send(st);
+
+    let payload : ResponseBankingAccountsBalanceById = {
+        data: {
+            accountId: '',
+            amortisedLimit: undefined,
+            availableBalance: '',
+            creditLimit: undefined,
+            currency: undefined,
+            currentBalance: '',
+            purses: undefined
+        },
+        links: {
+            self: `${req.url}`
+        }
+    }
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 
 // this endpoint requires authentication
 app.get(`${standardsVersion}/banking/payments/scheduled`, (req: Request, res: Response, next: NextFunction) => {
-    let st = `Received request on ${port} for ${req.url}`;
-    console.log(st);
-    res.send(st);
+    let payload : ResponseBankingScheduledPaymentsList = {
+        data: {
+            scheduledPayments: []
+        },
+        links: {
+            first: `${req.url}`,
+            last: `${req.url}`,
+            self: `${req.url}`
+        },
+        meta: {
+            totalPages: 0,
+            totalRecords: 0
+        }
+    }
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 
 // this endpoint requires authentication
 app.get(`${standardsVersion}/banking/payees`, (req: Request, res: Response, next: NextFunction) => {
-    let st = `Received request on ${port} for ${req.url}`;
-    console.log(st);
-    res.send(st);
+    let payload : ResponseBankingPayeeListV2 = {
+        data: {
+            payees: []
+        },
+        links: {
+            first: `${req.url}`,
+            last: `${req.url}`,
+            self: `${req.url}`
+        },
+        meta: {
+            totalPages: 0,
+            totalRecords: 0
+        }
+    }
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 
 app.get('/', (req, res, next) => {

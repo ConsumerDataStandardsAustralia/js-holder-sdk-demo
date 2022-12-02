@@ -48,7 +48,6 @@ app.use((0, holder_sdk_1.cdrTokenValidator)(dsbOptions));
 app.use((0, holder_sdk_1.cdrHeaderValidator)(dsbOptions));
 // this endpoint does NOT reequire authentication
 app.get(standardsVersion + "/energy/plans", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
     var links = {
         self: "" + req.url
     };
@@ -68,7 +67,23 @@ app.get(standardsVersion + "/energy/plans", function (req, res, next) {
 });
 // this endpoint requires authentication
 app.get(standardsVersion + "/energy/accounts", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
+    var links = {
+        self: "" + req.url
+    };
+    var meta = {
+        totalPages: 0,
+        totalRecords: 0
+    };
+    var payload = {
+        data: [],
+        links: links,
+        meta: meta
+    };
+    console.log(JSON.stringify(payload));
+    res.send(payload);
+});
+// this endpoint requires authentication
+app.get(standardsVersion + "/energy/electricity/servicepoints", function (req, res, next) {
     var links = {
         self: "" + req.url
     };
@@ -78,7 +93,7 @@ app.get(standardsVersion + "/energy/accounts", function (req, res, next) {
     };
     var payload = {
         data: {
-            plans: []
+            servicePoints: []
         },
         links: links,
         meta: meta
@@ -87,34 +102,80 @@ app.get(standardsVersion + "/energy/accounts", function (req, res, next) {
     res.send(payload);
 });
 // this endpoint requires authentication
-app.get(standardsVersion + "/energy/electricity/servicepoints", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
-    console.log(st);
-    res.send(st);
-});
-// this endpoint requires authentication
 app.get(standardsVersion + "/energy/accounts/:accountId", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
-    console.log(st);
-    res.send(st);
+    var links = {
+        self: "" + req.url
+    };
+    var meta = {};
+    var detail = {
+        plans: [],
+        accountId: '',
+        creationDate: ''
+    };
+    var payload = {
+        data: detail,
+        links: links,
+        meta: meta
+    };
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 // this endpoint requires authentication
 app.get(standardsVersion + "/banking/accounts/:accountId/balance", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
-    console.log(st);
-    res.send(st);
+    var payload = {
+        data: {
+            accountId: '',
+            amortisedLimit: undefined,
+            availableBalance: '',
+            creditLimit: undefined,
+            currency: undefined,
+            currentBalance: '',
+            purses: undefined
+        },
+        links: {
+            self: "" + req.url
+        }
+    };
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 // this endpoint requires authentication
 app.get(standardsVersion + "/banking/payments/scheduled", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
-    console.log(st);
-    res.send(st);
+    var payload = {
+        data: {
+            scheduledPayments: []
+        },
+        links: {
+            first: "" + req.url,
+            last: "" + req.url,
+            self: "" + req.url
+        },
+        meta: {
+            totalPages: 0,
+            totalRecords: 0
+        }
+    };
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 // this endpoint requires authentication
 app.get(standardsVersion + "/banking/payees", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
-    console.log(st);
-    res.send(st);
+    var payload = {
+        data: {
+            payees: []
+        },
+        links: {
+            first: "" + req.url,
+            last: "" + req.url,
+            self: "" + req.url
+        },
+        meta: {
+            totalPages: 0,
+            totalRecords: 0
+        }
+    };
+    console.log(JSON.stringify(payload));
+    res.send(payload);
 });
 app.get('/', function (req, res, next) {
     console.log("Received request on BASE " + port);
