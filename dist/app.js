@@ -47,53 +47,53 @@ app.use((0, holder_sdk_1.cdrTokenValidator)(dsbOptions));
 // this middle ware will handle the boilerplate validation and setting for a number of header parameters
 app.use((0, holder_sdk_1.cdrHeaderValidator)(dsbOptions));
 // this endpoint does NOT reequire authentication
-app.get(standardsVersion + "/energy/plans", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
+app.get("".concat(standardsVersion, "/energy/plans"), function (req, res, next) {
+    var st = "Received request on ".concat(port, " for ").concat(req.url);
     console.log(st);
     res.send(st);
 });
 // this endpoint requires authentication
-app.get(standardsVersion + "/energy/accounts", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
+app.get("".concat(standardsVersion, "/energy/accounts"), function (req, res, next) {
+    var st = "Received request on ".concat(port, " for ").concat(req.url);
     console.log(st);
     res.send(st);
 });
 // this endpoint requires authentication
-app.get(standardsVersion + "/energy/electricity/servicepoints", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
+app.get("".concat(standardsVersion, "/energy/electricity/servicepoints"), function (req, res, next) {
+    var st = "Received request on ".concat(port, " for ").concat(req.url);
     console.log(st);
     res.send(st);
 });
 // this endpoint requires authentication
-app.get(standardsVersion + "/energy/accounts/:accountId", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
+app.get("".concat(standardsVersion, "/energy/accounts/:accountId"), function (req, res, next) {
+    var st = "Received request on ".concat(port, " for ").concat(req.url);
     console.log(st);
     res.send(st);
 });
 // this endpoint requires authentication
-app.get(standardsVersion + "/banking/accounts/:accountId/balance", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
+app.get("".concat(standardsVersion, "/banking/accounts/:accountId/balance"), function (req, res, next) {
+    var st = "Received request on ".concat(port, " for ").concat(req.url);
     console.log(st);
     res.send(st);
 });
 // this endpoint requires authentication
-app.get(standardsVersion + "/banking/payments/scheduled", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
+app.get("".concat(standardsVersion, "/banking/payments/scheduled"), function (req, res, next) {
+    var st = "Received request on ".concat(port, " for ").concat(req.url);
     console.log(st);
     res.send(st);
 });
 // this endpoint requires authentication
-app.get(standardsVersion + "/banking/payees", function (req, res, next) {
-    var st = "Received request on " + port + " for " + req.url;
+app.get("".concat(standardsVersion, "/banking/payees"), function (req, res, next) {
+    var st = "Received request on ".concat(port, " for ").concat(req.url);
     console.log(st);
     res.send(st);
 });
 app.get('/', function (req, res, next) {
-    console.log("Received request on BASE " + port);
+    console.log("Received request on BASE ".concat(port));
     res.send();
 });
 app.listen(port, hostname, function () {
-    console.log("Server running at http://" + hostname + ":" + port + "/");
+    console.log("Server running at http://".concat(hostname, ":").concat(port, "/"));
     console.log('Listening for requests....');
 });
 //# sourceMappingURL=app.js.map
