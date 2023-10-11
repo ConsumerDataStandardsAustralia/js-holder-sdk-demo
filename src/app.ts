@@ -1,7 +1,7 @@
 import express, { request }  from 'express';
 import {NextFunction, Request, Response} from 'express';
 import endpoints from './data/endpoints.json';
-import {cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig, DefaultBankingEndpoints, cdrTokenValidator, cdrHeaderValidator}  from '@cds-au/holder-sdk'
+import {cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig, cdrTokenValidator, cdrHeaderValidator}  from '@cds-au/holder-sdk'
 
 const exp = express;
 const app = express();

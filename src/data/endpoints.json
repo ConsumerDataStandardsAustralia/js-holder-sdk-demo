@@ -8,8 +8,8 @@
     {
         "requestType": "GET",
         "requestPath": "/energy/accounts",
-        "minSupportedVersion": 1,
-        "maxSupportedVersion": 1
+        "minSupportedVersion": 2,
+        "maxSupportedVersion": 2
     },
     {
         "requestType": "GET",
@@ -21,8 +21,8 @@
     {
         "requestType": "GET",
         "requestPath": "/energy/accounts/{accountId}",
-        "minSupportedVersion": 1,
-        "maxSupportedVersion": 1
+        "minSupportedVersion": 3,
+        "maxSupportedVersion": 3
     },
     {
         "requestType": "GET",
@@ -33,8 +33,8 @@
     {
         "requestType": "GET",
         "requestPath": "/banking/payments/scheduled",
-        "minSupportedVersion": 1,
-        "maxSupportedVersion": 1
+        "minSupportedVersion": 2,
+        "maxSupportedVersion": 2
     },
     {
         "requestType": "GET",

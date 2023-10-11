@@ -27,7 +27,7 @@
     "@types/consumer-data-standards": "7.1.0",
     "@types/express-serve-static-core": "^4.17.30",
     "body-parser": "^1.20.0",
-    "@cds-au/holder-sdk": "^1.1.0",
+    "@cds-au/holder-sdk": "^1.2.0",
     "express": "^4.17.1"
   }
 }
