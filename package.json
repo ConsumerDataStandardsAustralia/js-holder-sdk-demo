@@ -2,10 +2,10 @@
   "name": "holder-sdk-demo",
   "version": "1.0.0",
   "description": "A demo app to demonstrate how to use the @cds-au/holder-sdk function ",
-  "main": "./app.js",
+  "main": "app.js",
   "scripts": {
     "start": "tsc && node ./dist/app.js",
-    "build": "tsc",
+    "build": "tsc ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon"
   },
@@ -27,7 +27,9 @@
     "@types/consumer-data-standards": "7.1.0",
     "@types/express-serve-static-core": "^4.17.30",
     "body-parser": "^1.20.0",
-    "@cds-au/holder-sdk": "^1.2.0",
-    "express": "^4.17.1"
+    "@cds-au/holder-sdk": "1.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.13.0",
+    "typedi": "^0.10.0"
   }
 }

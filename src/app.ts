@@ -1,7 +1,10 @@
 import express, { request }  from 'express';
 import {NextFunction, Request, Response} from 'express';
 import endpoints from './data/endpoints.json';
-import {cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig, cdrTokenValidator, cdrHeaderValidator}  from '@cds-au/holder-sdk'
+import {cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig, cdrTokenValidator, cdrHeaderValidator, cdrAuthentication, DsbAuthService, DsbAuthServerConfig}  from '@cds-au/holder-sdk'
+import { DemoAuthService } from './demo-auth.service';
+import { DsbAuthDataService } from './demo-auth-data.service';
+
 
 const exp = express;
 const app = express();
@@ -30,6 +33,20 @@ const dsbOptions: CdrConfig = {
     endpoints: sampleEndpoints
 }
 
+let config: DsbAuthServerConfig = {
+    idPermanenceKey: '',
+    internalIntrospection: '',
+    authServerBaseUrl: '',
+    caFile: ''
+}
+let dsbAuthDataService = new DsbAuthDataService(config);
+let dsbAuthService = new DsbAuthService(dsbAuthDataService);
+
+let authService = new DemoAuthService();
+
+
+app.use(cdrAuthentication(authOptions, authService))
+
 // This middle ware will extend the request object with the scopes.
 // It can be used for any IdAM where the access token is a JWT and the 
 // scope property is either an array of string or a space separated string
@@ -53,7 +70,7 @@ app.get(`${standardsVersion}/energy/plans`, (req: Request, res: Response, next: 
 app.get(`${standardsVersion}/energy/accounts`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
-    res.send(st);
+    res.send(authService.authUser.accounts);
 });
 
 // this endpoint requires authentication
@@ -100,7 +117,7 @@ app.get('/', (req, res, next) => {
 
 
 app.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Server running at http://${hostname}:${port}`);
     console.log('Listening for requests....');
 });
 
