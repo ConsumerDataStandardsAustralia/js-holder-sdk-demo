@@ -1,9 +1,8 @@
 import express, { request }  from 'express';
 import {NextFunction, Request, Response} from 'express';
 import endpoints from './data/endpoints.json';
-import {cdrJwtScopes, DsbAuthConfig, EndpointConfig, CdrConfig, cdrTokenValidator, cdrHeaderValidator, cdrAuthentication, DsbAuthService, DsbAuthServerConfig}  from '@cds-au/holder-sdk'
-import { DemoAuthService } from './demo-auth.service';
-import { DsbAuthDataService } from './demo-auth-data.service';
+import { EndpointConfig, CdrConfig, cdrScopeValidator, cdrHeaderValidator, cdrAuthenticationValidator, cdrEndpointValidator, IUserService}  from '@cds-au/holder-sdk'
+import { CdrUser } from '@cds-au/holder-sdk/src/models/user';
 
 
 const exp = express;
@@ -21,42 +20,31 @@ let standardsVersion = '/cds-au/v1';
 //          }
 const sampleEndpoints = [...endpoints] as EndpointConfig[];
 
-// Used in cdrJwtScopes. This configuration assumes that the IdAM issues a JWT
-// ie access token is JWT and scope in that token is a space delimited string
-const authOptions: DsbAuthConfig = {
-    scopeFormat: 'STRING',
-    endpoints: sampleEndpoints,
-}
 
 // Used in the cdrAuthorisation and cdrHeaders functions. 
 const dsbOptions: CdrConfig = {
     endpoints: sampleEndpoints
 }
 
-let config: DsbAuthServerConfig = {
-    idPermanenceKey: '',
-    internalIntrospection: '',
-    authServerBaseUrl: '',
-    caFile: ''
+const userService: IUserService = {
+    getUser(): CdrUser {
+        let usr : CdrUser = {
+            accountsEnergy:['12345'],
+            scopes_supported: ['energy:accounts.basic:read', 'bank:payees:read']
+        }
+        return usr;
+    }
 }
-let dsbAuthDataService = new DsbAuthDataService(config);
-let dsbAuthService = new DsbAuthService(dsbAuthDataService);
 
-let authService = new DemoAuthService();
-
-
-app.use(cdrAuthentication(authOptions, authService))
-
-// This middle ware will extend the request object with the scopes.
-// It can be used for any IdAM where the access token is a JWT and the 
-// scope property is either an array of string or a space separated string
-app.use(cdrJwtScopes(authOptions));
-
-// This middle ware will check access tokens for existence and scope
-app.use(cdrTokenValidator(dsbOptions));
-
-// this middle ware will handle the boilerplate validation and setting for a number of header parameters
+// This function will validate the accounts of the user in the request url
+app.use(cdrAuthenticationValidator(dsbOptions, userService));
+// This function will check if this is a CDR endpoint, and return appropriate error if it is not
+app.use(cdrEndpointValidator(dsbOptions));
+// This function will validate the scope assigned to the user against scope required
+app.use(cdrScopeValidator(dsbOptions, userService));
+// this function will handle the boilerplate validation and setting for a number of header parameters
 app.use(cdrHeaderValidator(dsbOptions));
+
 
 
 // this endpoint does NOT reequire authentication
@@ -70,7 +58,8 @@ app.get(`${standardsVersion}/energy/plans`, (req: Request, res: Response, next: 
 app.get(`${standardsVersion}/energy/accounts`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
-    res.send(authService.authUser.accounts);
+    let user = userService.getUser();
+    res.send(user?.accountsEnergy);
 });
 
 // this endpoint requires authentication
@@ -106,8 +95,8 @@ app.get(`${standardsVersion}/banking/payments/scheduled`, (req: Request, res: Re
 // this endpoint requires authentication
 app.get(`${standardsVersion}/banking/payees`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
-    console.log(st);
-    res.send(st);
+    let user = userService.getUser();
+    res.send(user?.accountsEnergy);
 });
 
 app.get('/', (req, res, next) => {
