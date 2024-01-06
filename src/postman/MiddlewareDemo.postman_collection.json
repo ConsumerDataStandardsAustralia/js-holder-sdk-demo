@@ -7,847 +7,1043 @@
 	},
 	"item": [
 		{
-			"name": "Use Case: Invalid x-min-v header is provided, eg alpha character",
-			"event": [
+			"name": "cdrEndpointValidatorTests",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 400\", function () {",
-							"            pm.response.to.have.status(400);",
-							"        });",
-							"",
-							"",
-							"        // Schema payload check",
-							"        pm.test('Response payload conforms to standards schema', function() {",
-							"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
-							"            if (!valid){",
-							"            ajv.errors.forEach(element => {",
-							"                console.log(JSON.stringify(element));",
-							"                });",
-							"            };",
-							"",
-							"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
-							"            var errMessage= jsonData?.errors[0]?.code;",
-							"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/Invalid\"",
-							"            pm.expect(errMessage).to.equal(exptectedMessage)",
-							"        });    ",
-							""
+					"name": "Use Case: Endpoint is CDR but not implemented",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 404\", function () {",
+									"            pm.response.to.have.status(404);",
+									"        });",
+									"",
+									"",
+									"        // Schema payload check",
+									"        pm.test('Response payload conforms to standards schema', function() {",
+									"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
+									"            if (!valid){",
+									"            ajv.errors.forEach(element => {",
+									"                console.log(JSON.stringify(element));",
+									"                });",
+									"            };",
+									"",
+									"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
+									"            var errMessage= jsonData?.errors[0]?.code;",
+									"            var exptectedMessage = \"urn:au-cds:error:cds-all:Resource/NotImplemented\"",
+									"            pm.expect(errMessage).to.equal(exptectedMessage)",
+									"        });    ",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-min-v",
+								"value": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "7e4233db-6938-438d-8689-7a8b1b46d977",
+								"type": "text"
+							}
 						],
-						"type": "text/javascript"
-					}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/banking/accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case: Endpoint is CDR but not implemented",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 404\", function () {",
+									"            pm.response.to.have.status(404);",
+									"        });",
+									"",
+									"",
+									"        // Schema payload check",
+									"        pm.test('Response payload conforms to standards schema', function() {",
+									"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
+									"            if (!valid){",
+									"            ajv.errors.forEach(element => {",
+									"                console.log(JSON.stringify(element));",
+									"                });",
+									"            };",
+									"",
+									"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
+									"            var errMessage= jsonData?.errors[0]?.code;",
+									"            var exptectedMessage = \"urn:au-cds:error:cds-all:Resource/NotImplemented\"",
+									"            pm.expect(errMessage).to.equal(exptectedMessage)",
+									"        });    ",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-min-v",
+								"value": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "7e4233db-6938-438d-8689-7a8b1b46d977",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/banking/accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case: Endpoint is a valid and implemented CDR endpoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 200\", function () {",
+									"            pm.response.to.have.status(200);",
+									"        });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-min-v",
+								"value": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "7e4233db-6938-438d-8689-7a8b1b46d977",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/energy/plans"
+					},
+					"response": []
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"type": "text"
-					},
-					{
-						"key": "x-min-v",
-						"value": "2.4",
-						"type": "text"
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": "{{baseUrl}}/energy/accounts"
-			},
-			"response": []
+			"description": "The enpoint validator middleware will construct an appropriate error object if a url is not a CDR endpoint, or is an endpoint which has not been implemented byt the DH."
 		},
 		{
-			"name": "Use Case: No x-v header is provided in the request",
-			"event": [
+			"name": "cdrHeaderValidatorTests",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 400\", function () {",
-							"            pm.response.to.have.status(400);",
-							"        });",
-							"",
-							"",
-							"        // Schema payload check",
-							"        pm.test('Response payload conforms to standards schema', function() {",
-							"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
-							"            if (!valid){",
-							"            ajv.errors.forEach(element => {",
-							"                console.log(JSON.stringify(element));",
-							"                });",
-							"            };",
-							"",
-							"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
-							"            var errMessage= jsonData?.errors[0]?.code;",
-							"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/Missing\"",
-							"            pm.expect(errMessage).to.equal(exptectedMessage)",
-							"        });    "
+					"name": "Use Case: Invalid x-min-v header is provided, eg alpha character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 400\", function () {",
+									"            pm.response.to.have.status(400);",
+									"        });",
+									"",
+									"",
+									"        // Schema payload check",
+									"        pm.test('Response payload conforms to standards schema', function() {",
+									"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
+									"            if (!valid){",
+									"            ajv.errors.forEach(element => {",
+									"                console.log(JSON.stringify(element));",
+									"                });",
+									"            };",
+									"",
+									"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
+									"            var errMessage= jsonData?.errors[0]?.code;",
+									"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/InvalidVersion\"",
+									"            pm.expect(errMessage).to.equal(exptectedMessage)",
+									"        });    ",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-min-v",
+								"value": "2.4",
+								"type": "text"
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+								"type": "text",
+								"disabled": true
+							}
 						],
-						"type": "text/javascript"
-					}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/energy/accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case: No x-v header is provided in the request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 400\", function () {",
+									"            pm.response.to.have.status(400);",
+									"        });",
+									"",
+									"",
+									"        // Schema payload check",
+									"        pm.test('Response payload conforms to standards schema', function() {",
+									"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
+									"            if (!valid){",
+									"            ajv.errors.forEach(element => {",
+									"                console.log(JSON.stringify(element));",
+									"                });",
+									"            };",
+									"",
+									"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
+									"            var errMessage= jsonData?.errors[0]?.code;",
+									"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/Missing\"",
+									"            pm.expect(errMessage).to.equal(exptectedMessage)",
+									"        });    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-min-v",
+								"value": "2.4",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/energy/accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case: Invalid x-v header is provided, eg alpha character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 400\", function () {",
+									"            pm.response.to.have.status(400);",
+									"        });",
+									"",
+									"",
+									"        // Schema payload check",
+									"        pm.test('Response payload conforms to standards schema', function() {",
+									"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
+									"            if (!valid){",
+									"            ajv.errors.forEach(element => {",
+									"                console.log(JSON.stringify(element));",
+									"                });",
+									"            };",
+									"",
+									"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
+									"            var errMessage= jsonData?.errors[0]?.code;",
+									"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/InvalidVersion\"",
+									"            pm.expect(errMessage).to.equal(exptectedMessage)",
+									"        });    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "wewer",
+								"type": "text"
+							},
+							{
+								"key": "x-min-v",
+								"value": "2.4",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/energy/accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case: A requested version is not supported",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 406\", function () {",
+									"            pm.response.to.have.status(406);",
+									"        });",
+									"",
+									"",
+									"        // Schema payload check",
+									"        pm.test('Response payload conforms to standards schema', function() {",
+									"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
+									"            if (!valid){",
+									"            ajv.errors.forEach(element => {",
+									"                console.log(JSON.stringify(element));",
+									"                });",
+									"            };",
+									"",
+									"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
+									"            var errMessage= jsonData?.errors[0]?.code;",
+									"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/UnsupportedVersion\"",
+									"            pm.expect(errMessage).to.equal(exptectedMessage)",
+									"        });    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "4",
+								"type": "text"
+							},
+							{
+								"key": "x-min-v",
+								"value": "3",
+								"type": "text"
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/banking/payees"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case: Invalid x-fapi-interaction-id header is provided, ie not a GUID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 400\", function () {",
+									"            pm.response.to.have.status(400);",
+									"        });",
+									"",
+									"",
+									"        // Schema payload check",
+									"        pm.test('Response payload conforms to standards schema', function() {",
+									"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
+									"            if (!valid){",
+									"            ajv.errors.forEach(element => {",
+									"                console.log(JSON.stringify(element));",
+									"                });",
+									"            };",
+									"",
+									"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
+									"            var errMessage= jsonData?.errors[0]?.code;",
+									"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/Invalid\"",
+									"            pm.expect(errMessage).to.equal(exptectedMessage)",
+									"        });    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-min-v",
+								"value": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "1f9b94f6-3049-401f-bb71-e",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/energy/accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case: No x-fapi-interaction-id header is provided",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 200\", function () {",
+									"            pm.response.to.have.status(200);",
+									"        });",
+									"",
+									"        pm.test(\"x-fapi-interaction-id header is present and has correct value\", function () {",
+									"            pm.response.to.have.header(\"x-fapi-interaction-id\");",
+									"        });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "2",
+								"type": "text"
+							},
+							{
+								"key": "x-min-v",
+								"value": "2",
+								"type": "text"
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "1f9b94f6-3049-401f-bb71-e",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/energy/accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case: x-fapi-interaction-id header in header is returned",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 200\", function () {",
+									"            pm.response.to.have.status(200);",
+									"        });",
+									"",
+									"",
+									"        pm.test(\"x-fapi-interaction-id header is present and has correct value\", function () {",
+									"            pm.response.to.have.header(\"x-fapi-interaction-id\", pm.variables.get(\"x-fapi-interaction-id\"));",
+									"        });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "2",
+								"type": "text"
+							},
+							{
+								"key": "x-min-v",
+								"value": "2",
+								"type": "text"
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "{{x-fapi-interaction-id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{baseUrl}}/energy/accounts"
+					},
+					"response": []
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "x-min-v",
-						"value": "2.4",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": "{{baseUrl}}/energy/accounts"
-			},
-			"response": []
+			"description": "The header validator middleware will check for existence and validity of a number of required headers under the CDR regime. Additionally, it will validate requested API versions against implemented versions.\n\nError objects are constructed and returned as required."
 		},
 		{
-			"name": "Use Case: Invalid x-v header is provided, eg alpha character",
-			"event": [
+			"name": "cdrScopeValidatorTests",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 400\", function () {",
-							"            pm.response.to.have.status(400);",
-							"        });",
-							"",
-							"",
-							"        // Schema payload check",
-							"        pm.test('Response payload conforms to standards schema', function() {",
-							"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
-							"            if (!valid){",
-							"            ajv.errors.forEach(element => {",
-							"                console.log(JSON.stringify(element));",
-							"                });",
-							"            };",
-							"",
-							"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
-							"            var errMessage= jsonData?.errors[0]?.code;",
-							"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/Invalid\"",
-							"            pm.expect(errMessage).to.equal(exptectedMessage)",
-							"        });    "
+					"name": "Use Case - Get Service Point Usage Invalid Scope",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 403\", function () {",
+									"            pm.response.to.have.status(403);",
+									"        });",
+									"",
+									"",
+									"        // Schema payload check",
+									"        pm.test('Response payload conforms to standards schema', function() {",
+									"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
+									"            if (!valid){",
+									"            ajv.errors.forEach(element => {",
+									"                console.log(JSON.stringify(element));",
+									"                });",
+									"            };",
+									"",
+									"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
+									"            var errMessage= jsonData?.errors[0]?.code;",
+									"            var exptectedMessage = \"urn:au-cds:error:cds-all:Authorisation/InvalidConsent\"",
+									"            pm.expect(errMessage).to.equal(exptectedMessage)",
+									"        });    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text"
+							}
 						],
-						"type": "text/javascript"
-					}
+						"url": "{{baseUrl}}/energy/electricity/servicepoints/34563/usage"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case - Get Service Points - Valid Scope",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"        // Parse the response body",
+									"        var jsonData;",
+									"        try {",
+									"            jsonData = pm.response.json();",
+									"",
+									"            }",
+									"        catch(e) {",
+									"            console.log(e);",
+									"        }",
+									"",
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 200\", function () {",
+									"            pm.response.to.have.status(200);",
+									"        });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": "{{baseUrl}}/energy/electricity/servicepoints"
+					},
+					"response": []
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "wewer",
-						"type": "text"
-					},
-					{
-						"key": "x-min-v",
-						"value": "2.4",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": "{{baseUrl}}/energy/accounts"
-			},
-			"response": []
+			"description": "The scope validator will determine if the assigned scope matches the required scope."
 		},
 		{
-			"name": "Use Case: A requested version is not supported",
-			"event": [
+			"name": "cdrResourceValidatorTests",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 406\", function () {",
-							"            pm.response.to.have.status(406);",
-							"        });",
-							"",
-							"",
-							"        // Schema payload check",
-							"        pm.test('Response payload conforms to standards schema', function() {",
-							"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
-							"            if (!valid){",
-							"            ajv.errors.forEach(element => {",
-							"                console.log(JSON.stringify(element));",
-							"                });",
-							"            };",
-							"",
-							"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
-							"            var errMessage= jsonData?.errors[0]?.code;",
-							"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/UnsupportedVersion\"",
-							"            pm.expect(errMessage).to.equal(exptectedMessage)",
-							"        });    "
+					"name": "Use Case - Get Energy Account Detail - Invalid Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 404\", function () {",
+									"            pm.response.to.have.status(404);",
+									"        });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "3",
+								"type": "text"
+							}
 						],
-						"type": "text/javascript"
-					}
+						"url": "{{baseUrl}}/energy/accounts/123456"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case - Get Energy Account Detail - Valid Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 200\", function () {",
+									"            pm.response.to.have.status(200);",
+									"        });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{accessToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "3",
+								"type": "text"
+							}
+						],
+						"url": "{{baseUrl}}/energy/accounts/12345"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case - Get Banking Balance (Acc does not exists)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 404\", function () {",
+									"            pm.response.to.have.status(404);",
+									"        });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": "{{baseUrl}}/banking/accounts/2343244/balance"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case - Get Banking balance for valid account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"        // HTTP Response and headers",
+									"        pm.test(\"Status code is 200\", function () {",
+									"            pm.response.to.have.status(200);",
+									"        });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": "{{baseUrl}}/banking/accounts/234324/balance"
+					},
+					"response": []
+				},
+				{
+					"name": "Use Case - Get Scheduled Payments for Account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-v",
+								"value": "1",
+								"description": "1",
+								"type": "text"
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "{{x-fapi-interaction-id}}",
+								"type": "text"
+							}
+						],
+						"url": "{{baseUrl}}/banking/accounts/234324/payments/scheduled"
+					},
+					"response": []
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "4",
-						"type": "text"
-					},
-					{
-						"key": "x-min-v",
-						"value": "3",
-						"type": "text"
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "1f9b94f6-3049-401f-bb71-e12ab3c6b343",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": "{{baseUrl}}/banking/payees"
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case: Invalid x-fapi-interaction-id header is provided, ie not a GUID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 400\", function () {",
-							"            pm.response.to.have.status(400);",
-							"        });",
-							"",
-							"",
-							"        // Schema payload check",
-							"        pm.test('Response payload conforms to standards schema', function() {",
-							"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
-							"            if (!valid){",
-							"            ajv.errors.forEach(element => {",
-							"                console.log(JSON.stringify(element));",
-							"                });",
-							"            };",
-							"",
-							"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
-							"            var errMessage= jsonData?.errors[0]?.code;",
-							"            var exptectedMessage = \"urn:au-cds:error:cds-all:Header/Invalid\"",
-							"            pm.expect(errMessage).to.equal(exptectedMessage)",
-							"        });    "
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"type": "text"
-					},
-					{
-						"key": "x-min-v",
-						"value": "1",
-						"type": "text"
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "1f9b94f6-3049-401f-bb71-e",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": "{{baseUrl}}/energy/accounts"
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case: No x-fapi-interaction-id header is provided",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 200\", function () {",
-							"            pm.response.to.have.status(200);",
-							"        });",
-							"",
-							"        pm.test(\"x-fapi-interaction-id header is present and has correct value\", function () {",
-							"            pm.response.to.have.header(\"x-fapi-interaction-id\");",
-							"        });",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "2",
-						"type": "text"
-					},
-					{
-						"key": "x-min-v",
-						"value": "2",
-						"type": "text"
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "1f9b94f6-3049-401f-bb71-e",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": "{{baseUrl}}/energy/accounts"
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case: x-fapi-interaction-id header in header is returned",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 200\", function () {",
-							"            pm.response.to.have.status(200);",
-							"        });",
-							"",
-							"",
-							"        pm.test(\"x-fapi-interaction-id header is present and has correct value\", function () {",
-							"            pm.response.to.have.header(\"x-fapi-interaction-id\", pm.variables.get(\"x-fapi-interaction-id\"));",
-							"        });",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "2",
-						"type": "text"
-					},
-					{
-						"key": "x-min-v",
-						"value": "2",
-						"type": "text"
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "{{x-fapi-interaction-id}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": "{{baseUrl}}/energy/accounts"
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case: Authorisation header is present, endpoint not implemented",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 404\", function () {",
-							"            pm.response.to.have.status(404);",
-							"        });",
-							"",
-							"",
-							"        // Schema payload check",
-							"        pm.test('Response payload conforms to standards schema', function() {",
-							"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
-							"            if (!valid){",
-							"            ajv.errors.forEach(element => {",
-							"                console.log(JSON.stringify(element));",
-							"                });",
-							"            };",
-							"",
-							"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
-							"            var errMessage= jsonData?.errors[0]?.code;",
-							"            var exptectedMessage = \"urn:au-cds:error:cds-all:Resource/NotImplemented\"",
-							"            pm.expect(errMessage).to.equal(exptectedMessage)",
-							"        });    ",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"type": "text"
-					},
-					{
-						"key": "x-min-v",
-						"value": "1",
-						"type": "text"
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "7e4233db-6938-438d-8689-7a8b1b46d977",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": "{{baseUrl}}/banking/accounts"
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case: Authorisation header is present, endpoint not is not a CDR endpoint",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 404\", function () {",
-							"            pm.response.to.have.status(404);",
-							"        });",
-							"",
-							"",
-							"        // Schema payload check",
-							"        pm.test('Response payload conforms to standards schema', function() {",
-							"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
-							"            if (!valid){",
-							"            ajv.errors.forEach(element => {",
-							"                console.log(JSON.stringify(element));",
-							"                });",
-							"            };",
-							"",
-							"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
-							"            var errMessage= jsonData?.errors[0]?.code;",
-							"            var exptectedMessage = \"urn:au-cds:error:cds-all:Resource/NotFound\"",
-							"            pm.expect(errMessage).to.equal(exptectedMessage)",
-							"        });    ",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"type": "text"
-					},
-					{
-						"key": "x-min-v",
-						"value": "1",
-						"type": "text"
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "7e4233db-6938-438d-8689-7a8b1b46d977",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": "{{baseUrl}}/banking/energy"
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case - Get Energy Account Detail - Invalid Account",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 404\", function () {",
-							"            pm.response.to.have.status(404);",
-							"        });"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "{{accessToken}}"
-					}
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "3",
-						"type": "text"
-					}
-				],
-				"url": "{{baseUrl}}/energy/accounts/12345"
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case - Get Energy Plans (plan does not exists)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 404\", function () {",
-							"            pm.response.to.have.status(404);",
-							"        });"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"type": "text"
-					}
-				],
-				"url": "{{baseUrl}}/banking/accounts/2343244/balance"
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case - Get Service Point Usage Invalid Scope",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"        // Parse the response body",
-							"        var jsonData;",
-							"        try {",
-							"            jsonData = pm.response.json();",
-							"",
-							"            }",
-							"        catch(e) {",
-							"            console.log(e);",
-							"        }",
-							"",
-							"        // HTTP Response and headers",
-							"        pm.test(\"Status code is 403\", function () {",
-							"            pm.response.to.have.status(403);",
-							"        });",
-							"",
-							"",
-							"        // Schema payload check",
-							"        pm.test('Response payload conforms to standards schema', function() {",
-							"            const valid = ajv.validate(\"ResponseErrorListV2\", jsonData)",
-							"            if (!valid){",
-							"            ajv.errors.forEach(element => {",
-							"                console.log(JSON.stringify(element));",
-							"                });",
-							"            };",
-							"",
-							"            pm.expect(valid, JSON.stringify(ajv.errors)).to.be.true; ",
-							"            var errMessage= jsonData?.errors[0]?.code;",
-							"            var exptectedMessage = \"urn:au-cds:error:cds-all:Authorisation/InvalidConsent\"",
-							"            pm.expect(errMessage).to.equal(exptectedMessage)",
-							"        });    "
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"type": "text"
-					}
-				],
-				"url": "{{baseUrl}}/energy/electricity/servicepoints/34563/usage"
-			},
-			"response": []
-		},
-		{
-			"name": "Use Case - Get Scheduled Payments for Account",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-v",
-						"value": "1",
-						"description": "1",
-						"type": "text"
-					},
-					{
-						"key": "x-fapi-interaction-id",
-						"value": "{{x-fapi-interaction-id}}",
-						"type": "text"
-					}
-				],
-				"url": "{{baseUrl}}/banking/accounts/234324/payments/scheduled"
-			},
-			"response": []
+			"description": "The resource validator will validate specific resource identifiers which form part of the request url (eg :accountId) and validate that the current user has access to these resources."
 		}
 	],
 	"auth": {
