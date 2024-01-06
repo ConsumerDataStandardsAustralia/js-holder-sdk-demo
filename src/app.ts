@@ -26,17 +26,25 @@ const dsbOptions: CdrConfig = {
     endpoints: sampleEndpoints
 }
 
-
-// The middleware requires a IUserService, which will be called at runtime to get the current user
+// Some middleware requires a IUserService, which will be called at runtime to get the current user
+// This is the case for the
+//   - cdrResourceValidator as this requires knowledge about accessible accounts
+//   - cdrScopeValidator as this requires knowledge about scopes assigned by the IdP
+// Below is an example.
 const userService: IUserService = {
     getUser(): CdrUser {
         let usr : CdrUser = {
             accountsEnergy:['12345'],
             accountsBanking:['234324'],
             energyServicePoints: ['34563'],
-            scopes_supported: ['energy:accounts.basic:read', 'bank:payees:read', 'energy:accounts.detail:read', 'energy:electricity.servicepoints.basic:read', 'energy:electricity.servicepoints.detail:read']
+            scopes_supported: [
+                'energy:accounts.basic:read',
+                'bank:payees:read',
+                'energy:accounts.detail:read',
+                'energy:electricity.servicepoints.basic:read',
+                'energy:electricity.servicepoints.detail:read',
+                'bank:accounts.basic:read']
         }
-        if (Math.random() > 0.5) usr.accountsEnergy = ['657899'];
         return usr;
     }
 }
@@ -49,7 +57,6 @@ app.use(cdrResourceValidator(dsbOptions, userService));
 app.use(cdrScopeValidator(dsbOptions, userService));
 // this function will handle the boilerplate validation and setting for a number of header parameters
 app.use(cdrHeaderValidator(dsbOptions));
-
 
 
 // this endpoint does NOT reequire authentication
@@ -74,7 +81,15 @@ app.get(`${standardsVersion}/energy/electricity/servicepoints`, (req: Request, r
 });
 
 // this endpoint requires authentication
-app.get(`${standardsVersion}/energy/electricity/servicepoints/{servicePointId}`, (req: Request, res: Response, next: NextFunction) => {
+app.get(`${standardsVersion}/energy/electricity/servicepoints/:servicePointId`, (req: Request, res: Response, next: NextFunction) => {
+    let st = `Received request on ${port} for ${req.url}`;
+    console.log(st);
+    res.send(st);
+});
+
+
+// this endpoint requires authentication
+app.get(`${standardsVersion}/energy/electricity/servicepoints/:servicePointId/usage`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
