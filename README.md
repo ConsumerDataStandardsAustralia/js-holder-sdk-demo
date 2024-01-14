@@ -18,23 +18,36 @@ and the DSB acknowledges the use of these tools alone is not sufficient for, nor
 with respect to [accreditation](https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0/cdr-draft-accreditation-guidelines),
 conformance, or compliance purposes.
 
-## How to use
+## Overview
 
-This is a simple NodeJS server implementation which utilises the middleware functions exposed by  
-[holder-sdk](https://github.com/ConsumerDataStandardsAustralia/holder-sdk) package.
+This is a simple NodeJS server implementation which utilises the middleware functions exposed by [holder-sdk](https://github.com/ConsumerDataStandardsAustralia/holder-sdk) package.
 
 It demonstrate how different client request will trigger the generation of error objects and Http return code where this is required under published technical [standard](https://github.com/ConsumerDataStandardsAustralia/standards)
 
-The `endpoints.json` file used in the configuration options `dsbOptions` and `authOptions` lists which endpoints this server implements.
+The `endpoints.json` file used in the configuration options `dsbOptions` lists which endpoints this server implements.
 
-This implementation assumes the access token is a JWT and the scopes within that token is a space separated string. This allows the use of `cdrJwtScopes` and requires this configuration 
+This implementation assumes that an authenticated user exists and information such as scopes and consented accoun ids are available. This is achived by implementing an IUserService as defined in the js-holder-sdk package.
 
-````
-const authOptions: DsbAuthConfig = {
-    scopeFormat: 'STRING',
-    endpoints: dsbEndpoints,
+````javascript
+const userService: IUserService = {
+    getUser(): CdrUser {
+        let usr : CdrUser = {
+            accountsEnergy:['12345'],
+            accountsBanking:['234324'],
+            energyServicePoints: ['34563'],
+            scopes_supported: [
+                'energy:accounts.basic:read',
+                'bank:payees:read',
+                'energy:accounts.detail:read',
+                'energy:electricity.servicepoints.basic:read',
+                'energy:electricity.servicepoints.detail:read',
+                'bank:accounts.basic:read']
+        }
+        return usr;
+    }
 }
 ````
+## How to use
 
 Build this project with `npm run build`
 

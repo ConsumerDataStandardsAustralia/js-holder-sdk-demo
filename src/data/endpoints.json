@@ -7,7 +7,7 @@
     },
     {
         "requestType": "GET",
-        "requestPath": "/energy/plans/{accountId}",
+        "requestPath": "/energy/plans/{planId}",
         "minSupportedVersion": 1,
         "maxSupportedVersion": 1
     },

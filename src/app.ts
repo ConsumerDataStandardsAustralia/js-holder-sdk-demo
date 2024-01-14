@@ -5,7 +5,6 @@ import { EndpointConfig, CdrConfig, cdrScopeValidator, cdrHeaderValidator, cdrRe
 import { CdrUser } from '@cds-au/holder-sdk/src/models/user';
 
 
-const exp = express;
 const app = express();
 const port = 3000;
 const hostname = '127.0.0.1';
@@ -21,7 +20,7 @@ let standardsVersion = '/cds-au/v1';
 const sampleEndpoints = [...endpoints] as EndpointConfig[];
 
 
-// Used in the cdrAuthorisation and cdrHeaders functions. 
+// Used in the and cdrEndpointValidator cdrHeaderValidator functions. 
 const dsbOptions: CdrConfig = {
     endpoints: sampleEndpoints
 }
@@ -49,15 +48,29 @@ const userService: IUserService = {
     }
 }
 
+// function used to determine if the middleware is to be bypassed for the given 'paths'
+function unless(middleware: any, ...paths: any) {
+    return function (req: Request, res: Response, next: NextFunction) {
+        const pathCheck = paths.some((path: string) => path === req.path);
+        pathCheck ? next() : middleware(req, res, next);
+    };
+};
+
 // This function will check if this is a CDR endpoint, and return appropriate error if it is not
-app.use(cdrEndpointValidator(dsbOptions));
+app.use(unless(cdrEndpointValidator(dsbOptions), "/energy/plans"));
 // This function will validate the accounts of the user in the request url
-app.use(cdrResourceValidator(dsbOptions, userService));
+app.use(cdrResourceValidator(userService));
 // This function will validate the scope assigned to the user against scope required
-app.use(cdrScopeValidator(dsbOptions, userService));
+app.use(cdrScopeValidator(userService));
 // this function will handle the boilerplate validation and setting for a number of header parameters
 app.use(cdrHeaderValidator(dsbOptions));
 
+// this endpoint is not a CDR endpoint
+app.get(`/energy/plans`, (req: Request, res: Response, next: NextFunction) => {
+    let st = `Received request on ${port} for ${req.url}`;
+    console.log(st);
+    res.send(st);
+});
 
 // this endpoint does NOT reequire authentication
 app.get(`${standardsVersion}/energy/plans`, (req: Request, res: Response, next: NextFunction) => {
