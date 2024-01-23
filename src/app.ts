@@ -1,10 +1,11 @@
 import express, { request }  from 'express';
 import {NextFunction, Request, Response} from 'express';
 import endpoints from './data/endpoints.json';
-import { EndpointConfig, CdrConfig, cdrScopeValidator, cdrHeaderValidator, cdrResourceValidator, cdrEndpointValidator, IUserService, cdrTokenValidator, cdrJwtScopes, DsbAuthConfig}  from '@cds-au/holder-sdk'
-import { CdrUser } from '@cds-au/holder-sdk/src/models/user';
+import { EndpointConfig, CdrConfig, cdrScopeValidator, cdrHeaderValidator, cdrResourceValidator,
+    cdrEndpointValidator, IUserService, cdrTokenValidator, cdrJwtScopes, DsbAuthConfig}  from '@cds-au/holder-sdk'
 import http from 'http'
 import https from 'https'
+import { CdrUser } from '@cds-au/holder-sdk/src/models/user';
 
 const app = express();
 const port = 3000;
@@ -89,20 +90,6 @@ app.use(cdrScopeValidator(userService));
 app.use(cdrResourceValidator(userService));
 
 
-// This function will validate the accounts of the user in the request url
-// app.use(cdrResourceValidator(userService));
-// // This function will validate the scope assigned to the user against scope required
-// app.use(cdrScopeValidator(userService));
-// // this function will handle the boilerplate validation and setting for a number of header parameters
-// app.use(cdrHeaderValidator(config));
-
-// this endpoint is not a CDR endpoint, but is marked to by pass the cdrEndpointValidator
-app.get(`/ignore-me`, (req: Request, res: Response, next: NextFunction) => {
-    let st = `Received request on ${port} for ${req.url}`;
-    console.log(st);
-    res.send(st);
-});
-
 // this endpoint does NOT reequire authentication
 app.get(`${standardsVersion}/energy/plans`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
@@ -146,36 +133,6 @@ app.get(`/prod-data${standardsVersion}/banking/accounts`, (req: Request, res: Re
 });
 
 
-
-// // this endpoint requires authentication
-// app.get(`${standardsVersion}/banking/accounts/:accountId/balance`, (req: Request, res: Response, next: NextFunction) => {
-//     let st = `Received request on ${port} for ${req.url}`;
-//     console.log(st);
-//     res.send(st);
-// });
-
-
-// // this endpoint requires authentication
-// app.get(`${standardsVersion}/banking/accounts/:accountId/payments/scheduled`, (req: Request, res: Response, next: NextFunction) => {
-//     let st = `Received request on ${port} for ${req.url}`;
-//     console.log(st);
-//     res.send(st);
-// });
-
-// // this endpoint requires authentication
-// app.get(`${standardsVersion}/banking/payments/scheduled`, (req: Request, res: Response, next: NextFunction) => {
-//     let st = `Received request on ${port} for ${req.url}`;
-//     console.log(st);
-//     res.send(st);
-// });
-
-// // this endpoint requires authentication
-// app.get(`${standardsVersion}/banking/payees`, (req: Request, res: Response, next: NextFunction) => {
-//     let st = `Received request on ${port} for ${req.url}`;
-//     console.log(st);
-//     res.send(st);
-// });
-
 app.get('/', (req, res, next) => {
     console.log(`Received request on BASE ${port}`);
     res.send();
@@ -185,7 +142,6 @@ app.get('/', (req, res, next) => {
 http.createServer(app).listen(80);
 
 https.createServer(app).listen(443);
-
 
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}`);
