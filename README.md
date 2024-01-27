@@ -24,9 +24,15 @@ This is a simple NodeJS server implementation which utilises the middleware func
 
 It demonstrate how different client request will trigger the generation of error objects and Http return code where this is required under published technical [standard](https://github.com/ConsumerDataStandardsAustralia/standards)
 
-The `endpoints.json` file used in the configuration options `dsbOptions` lists which endpoints this server implements.
+The `endpoints.json` file used in the configuration options `configDefault` lists which endpoints this server implements.
 
-This implementation assumes that an authenticated user exists and information such as scopes and consented accoun ids are available. This is achived by implementing an IUserService as defined in the js-holder-sdk package.
+## Validation of Scopes
+
+### Method 1 : Validate scopes with a callback function
+
+This implementation assumes that an authenticated user exists and information such as scopes and consented account ids are available. This is achived by implementing an IUserService as defined in the js-holder-sdk package.
+
+The middleware functions will call the `getUser()` method where this is applicable.
 
 ````javascript
 const userService: IUserService = {
@@ -47,12 +53,23 @@ const userService: IUserService = {
     }
 }
 ````
+
+### Method 2 : Validate scopes by reading the access token
+
+This method can be used where the access token is a JWT and scopes withing that token are either comma or space separated.
+It will read scopes from the access token provided in the request header and extend the Request object with that token (cdrJwtScopes). The access token can then be read from the extended Request object as it is passed through the Http request pipeline. For this implementation the `cdrTokenValidator` will evaluate provided scope against required scope.
+```
+app.use(cdrJwtScopes(jwtConfig))
+app.use(cdrTokenValidator(tokenConfig));
+``````
 ## How to use
 
 Build this project with `npm run build`
 
 Run this project with `npm start`
 
-The Postman collection `/src/MiddlewareDemo.postman_collection.json` has some examples for common scenarios, eg invalid header. This collection exists to demonstrate functionality.
+The Postman collection `/src/postman/MiddlewareDemo.postman_collection.json` has some examples for common scenarios, eg invalid header. This collection exists to demonstrate functionality.
 
-*Note: This demo project was tested with NodeJS  v18.7.0*
+Run the Postman collection with the environment file in `src/postman/MiddleWare Demo.postman_environment.json`. This file contains an JWT access token with scopes.
+
+*Note: This demo project was tested with NodeJS  v18.12.1*

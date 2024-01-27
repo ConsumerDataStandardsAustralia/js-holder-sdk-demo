@@ -5,14 +5,15 @@ import { EndpointConfig, CdrConfig, cdrScopeValidator, cdrHeaderValidator, cdrRe
     cdrEndpointValidator, IUserService, cdrTokenValidator, cdrJwtScopes, DsbAuthConfig}  from '@cds-au/holder-sdk'
 import http from 'http'
 import https from 'https'
-import { CdrUser } from '@cds-au/holder-sdk/src/models/user';
+import { CdrUser } from '@cds-au/holder-sdk';
 
 const app = express();
 const port = 3000;
 const hostname = '127.0.0.1';
-let standardsVersion = '/cds-au/v1';
+const baseUrl = '/cds-au/v1'
 
-// the endpoint configuration file fort this server, which endpoints does this server implement
+// The endpoint configuration file fort this server, which endpoints does this server implement.
+// In this example the implemented endpoints are read from a file (endpoints.json)
 // The dsb-middleware also has constants for DefaultBankingEndpoints and DefaultEnergyEndpoints
 // These can be used as defaults if the server implements all CDR endpoints
 // eg 
@@ -22,15 +23,9 @@ let standardsVersion = '/cds-au/v1';
 const sampleEndpoints = [...endpoints] as EndpointConfig[];
 
 
-// Used in the and cdrEndpointValidatorfunctions
-const endpointConfig: CdrConfig = {
-    endpoints: sampleEndpoints,
-    // basePath: '/prod-data'
-    //specifiedEndpointsOnly: false
-}
-
-// Used in the cdrHeaderValidator function
-const headerConfig: CdrConfig = {
+// Use this config file for cdrEndpointValidator and cdrHeaderValidator
+// If the baseUrl is http://<HOST>:<PORT>/cds-au/v1
+const configDefault: CdrConfig = {
     endpoints: sampleEndpoints
 }
 
@@ -56,8 +51,7 @@ const userService: IUserService = {
                 'energy:accounts.detail:read',
                 'bank:payees:read',
                 'energy:electricity.servicepoints.basic:read',
-                'energy:electricity.servicepoints.detail:read',
-                'bank:accounts.basic:read']
+                'energy:electricity.servicepoints.detail:read']
         }
         return usr;
     }
@@ -68,44 +62,40 @@ const tokenConfig: CdrConfig = {
     endpoints: sampleEndpoints,
 }
 
-// function used to determine if the middleware is to be bypassed for the given 'paths'
-function unless(middleware: any, ...paths: any) {
-    return function (req: Request, res: Response, next: NextFunction) {
-        const pathCheck = paths.some((path: string) => path === req.path);
-        pathCheck ? next() : middleware(req, res, next);
-    };
-};
-
 // This function will check if this is a CDR endpoint and if it has been implemented
-app.use(cdrEndpointValidator(endpointConfig));
+app.use(cdrEndpointValidator(configDefault));
 // This function will validate various headers required under the CDR
-app.use(cdrHeaderValidator(headerConfig));
+app.use(cdrHeaderValidator(configDefault));
 
 app.use(cdrScopeValidator(userService));
+
 // **** An alternative method to valid scop is to use cdrJwtScopes in combination with cdrTokenValidator
+// **** This may be suitable in some scenarios where the IdP use JWT access tokens
+// **** The cdrJwtScopes function will read the scopes from a JWT access token and extend the request object 
+// **** The cdrTokenValidator function will use the scopes from the request object and evaluate
 // app.use(cdrJwtScopes(jwtConfig))
 // app.use(cdrTokenValidator(tokenConfig));
 
-// This function will validate consent has been given to specific accounts
+// The cdrResourceValidator function will validate consent has been given to specific accounts
 app.use(cdrResourceValidator(userService));
 
 
 // this endpoint does NOT reequire authentication
-app.get(`${standardsVersion}/energy/plans`, (req: Request, res: Response, next: NextFunction) => {
+app.get(`${baseUrl}/energy/plans`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
 });
 
 // this endpoint requires authentication
-app.get(`${standardsVersion}/energy/accounts`, (req: Request, res: Response, next: NextFunction) => {
+app.get(`${baseUrl}/energy/accounts`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
 });
 
 // this endpoint requires authentication and a consented accountId
-app.get(`${standardsVersion}/energy/accounts/:accountId`, (req: Request, res: Response, next: NextFunction) => {
+app.get(`${baseUrl}/energy/accounts/:accountId`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
@@ -119,14 +109,14 @@ app.get(`/health`, (req: Request, res: Response, next: NextFunction) => {
 });
 
 // this endpoint requires authentication
-app.get(`${standardsVersion}/banking/accounts/:accountId`, (req: Request, res: Response, next: NextFunction) => {
+app.get(`${baseUrl}/banking/accounts/:accountId`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
 });
 
 // this endpoint requires authentication
-app.get(`/prod-data${standardsVersion}/banking/accounts`, (req: Request, res: Response, next: NextFunction) => {
+app.get(`${baseUrl}/banking/accounts`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
@@ -147,5 +137,13 @@ app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}`);
     console.log('Listening for requests....');
 });
+
+// function can used to determine if the middleware is to be bypassed for the given 'paths'
+function unless(middleware: any, ...paths: any) {
+    return function (req: Request, res: Response, next: NextFunction) {
+        const pathCheck = paths.some((path: string) => path === req.path);
+        pathCheck ? next() : middleware(req, res, next);
+    };
+};
 
 

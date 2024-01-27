@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "58ccdee9-c4a3-4c6f-be45-e53b58b50741",
 		"name": "MiddlewareDemo",
+		"description": "The API calls in this collection can be used to validate the use of [js-holder SDK](https://github.com/ConsumerDataStandardsAustralia/js-holder-sdk) middleware.\n\nThe expected return values and bodies will depend on which middleware function has been included and how this is configured.\n\nTherefore, these tests need to be considered in conjunction with the actual NodeJS project using the js-holder SDK middleware functions. An code example illustrating how these functions can be used can be found [here](https://github.com/ConsumerDataStandardsAustralia/js-holder-sdk-demo)\n\nThe expected return values for this calls will depend on how the various functions are configured is configured, ie what configuration object is passed in (refer to [a code example here)](https://github.com/ConsumerDataStandardsAustralia/js-holder-sdk-demo). There are three settings to consider\n\n- **endpoints:** (JSON) This configured with file, spefifying all endpoints the data holder (ie the API) claims to have implemented.  \n    If not specified ALL DSB published endpoints for Energy, Banking and Common are assumed to have been implemented.\n    \n- **specifiedEndpointsOnly:** (Boolean, default true). If this is set to \"false\" the endpoint validator will not return error objects\n    \n- **basePath:** if the base url for the API varies from http://, eg http:///test-system. If this is not set in the configuration the API calls would be classified as \"not a CDR endpoint\" and an appropriate error would be returned",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "8286723"
 	},
@@ -27,10 +28,7 @@
 					],
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "{{accessToken}}"
-							}
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [
@@ -87,10 +85,7 @@
 					],
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "{{accessToken}}"
-							}
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [
@@ -147,10 +142,7 @@
 					],
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "{{accessToken}}"
-							}
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [
