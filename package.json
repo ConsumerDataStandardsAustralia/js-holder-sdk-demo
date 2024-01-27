@@ -1,6 +1,6 @@
 {
   "name": "holder-sdk-demo",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A demo app to demonstrate how to use the @cds-au/holder-sdk function ",
   "main": "app.js",
   "scripts": {
