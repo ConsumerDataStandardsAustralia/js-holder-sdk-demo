@@ -18,28 +18,58 @@ and the DSB acknowledges the use of these tools alone is not sufficient for, nor
 with respect to [accreditation](https://www.accc.gov.au/focus-areas/consumer-data-right-cdr-0/cdr-draft-accreditation-guidelines),
 conformance, or compliance purposes.
 
-## How to use
+## Overview
 
-This is a simple NodeJS server implementation which utilises the middleware functions exposed by  
-[holder-sdk](https://github.com/ConsumerDataStandardsAustralia/holder-sdk) package.
+This is a simple NodeJS server implementation which utilises the middleware functions exposed by [holder-sdk](https://github.com/ConsumerDataStandardsAustralia/holder-sdk) package.
 
 It demonstrate how different client request will trigger the generation of error objects and Http return code where this is required under published technical [standard](https://github.com/ConsumerDataStandardsAustralia/standards)
 
-The `endpoints.json` file used in the configuration options `dsbOptions` and `authOptions` lists which endpoints this server implements.
+The `endpoints.json` file used in the configuration options `configDefault` lists which endpoints this server implements.
 
-This implementation assumes the access token is a JWT and the scopes within that token is a space separated string. This allows the use of `cdrJwtScopes` and requires this configuration 
+## Validation of Scopes
 
-````
-const authOptions: DsbAuthConfig = {
-    scopeFormat: 'STRING',
-    endpoints: dsbEndpoints,
+### Method 1 : Validate scopes with a callback function
+
+This implementation assumes that an authenticated user exists and information such as scopes and consented account ids are available. This is achived by implementing an IUserService as defined in the js-holder-sdk package.
+
+The middleware functions will call the `getUser()` method where this is applicable.
+
+````javascript
+const userService: IUserService = {
+    getUser(): CdrUser {
+        let usr : CdrUser = {
+            accountsEnergy:['12345'],
+            accountsBanking:['234324'],
+            energyServicePoints: ['34563'],
+            scopes_supported: [
+                'energy:accounts.basic:read',
+                'bank:payees:read',
+                'energy:accounts.detail:read',
+                'energy:electricity.servicepoints.basic:read',
+                'energy:electricity.servicepoints.detail:read',
+                'bank:accounts.basic:read']
+        }
+        return usr;
+    }
 }
 ````
+
+### Method 2 : Validate scopes by reading the access token
+
+This method can be used where the access token is a JWT and scopes withing that token are either comma or space separated.
+It will read scopes from the access token provided in the request header and extend the Request object with that token (cdrJwtScopes). The access token can then be read from the extended Request object as it is passed through the Http request pipeline. For this implementation the `cdrTokenValidator` will evaluate provided scope against required scope.
+```
+app.use(cdrJwtScopes(jwtConfig))
+app.use(cdrTokenValidator(tokenConfig));
+``````
+## How to use
 
 Build this project with `npm run build`
 
 Run this project with `npm start`
 
-The Postman collection `/src/MiddlewareDemo.postman_collection.json` has some examples for common scenarios, eg invalid header. This collection exists to demonstrate functionality.
+The Postman collection `/src/postman/MiddlewareDemo.postman_collection.json` has some examples for common scenarios, eg invalid header. This collection exists to demonstrate functionality.
 
-*Note: This demo project was tested with NodeJS  v18.7.0*
+Run the Postman collection with the environment file in `src/postman/MiddleWare Demo.postman_environment.json`. This file contains an JWT access token with scopes.
+
+*Note: This demo project was tested with NodeJS  v18.12.1*

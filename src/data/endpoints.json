@@ -13,33 +13,20 @@
     },
     {
         "requestType": "GET",
-        "requestPath": "/energy/electricity/servicepoints",
-        "minSupportedVersion": 1,
-        "maxSupportedVersion": 1
-    },
-    
-    {
-        "requestType": "GET",
         "requestPath": "/energy/accounts/{accountId}",
-        "minSupportedVersion": 3,
+        "minSupportedVersion": 2,
         "maxSupportedVersion": 3
     },
     {
         "requestType": "GET",
-        "requestPath": "/banking/accounts/{accountId}/balance",
-        "minSupportedVersion": 1,
-        "maxSupportedVersion": 1
-    },
-    {
-        "requestType": "GET",
-        "requestPath": "/banking/payments/scheduled",
+        "requestPath": "/banking/accounts",
         "minSupportedVersion": 2,
         "maxSupportedVersion": 2
     },
     {
         "requestType": "GET",
-        "requestPath": "/banking/payees",
-        "minSupportedVersion": 2,
-        "maxSupportedVersion": 2
-    }
+        "requestPath": "/banking/accounts/{accountId}",
+        "minSupportedVersion": 3,
+        "maxSupportedVersion": 3
+    }  
 ]
