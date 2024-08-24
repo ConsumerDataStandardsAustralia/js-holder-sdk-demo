@@ -2,10 +2,12 @@ import express, { request }  from 'express';
 import {NextFunction, Request, Response} from 'express';
 import endpoints from './data/endpoints.json';
 import { EndpointConfig, CdrConfig, cdrScopeValidator, cdrHeaderValidator, cdrResourceValidator,
-    cdrEndpointValidator, IUserService, cdrTokenValidator, cdrJwtScopes, DsbAuthConfig}  from '@cds-au/holder-sdk'
+    cdrEndpointValidator, IUserService, cdrTokenValidator, cdrJwtScopes, DsbAuthConfig, buildErrorMessage}  from '@cds-au/holder-sdk'
 import http from 'http'
 import https from 'https'
 import { CdrUser } from '@cds-au/holder-sdk';
+import { DsbStandardError } from '@cds-au/holder-sdk/dist/src/error-messsage-defintions';
+import { MetaError, ResponseErrorListV2 } from 'consumer-data-standards/admin';
 
 const app = express();
 const port = 3000;
@@ -84,7 +86,12 @@ app.use(cdrResourceValidator(userService));
 app.get(`${baseUrl}/energy/plans`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
-    res.send(st);
+    // create an error list
+    let errList: ResponseErrorListV2 = buildErrorMessage(DsbStandardError.ADR_NOT_ACTIVE, "Some detail", undefined);
+    // keep adding errors to list
+    errList = buildErrorMessage(DsbStandardError.MISSING_REQUIRED_HEADER, "Additional Info", errList);
+    console.log(JSON.stringify(errList));
+    res.send(errList);
 });
 
 // this endpoint requires authentication
@@ -129,6 +136,7 @@ app.get('/', (req, res, next) => {
 });
 
 
+
 http.createServer(app).listen(80);
 
 https.createServer(app).listen(443);
@@ -136,6 +144,7 @@ https.createServer(app).listen(443);
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}`);
     console.log('Listening for requests....');
+
 });
 
 // function can used to determine if the middleware is to be bypassed for the given 'paths'
