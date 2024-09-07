@@ -82,19 +82,14 @@ app.use(cdrScopeValidator(userService));
 app.use(cdrResourceValidator(userService));
 
 
-// this endpoint does NOT reequire authentication
+// this endpoint does NOT require authentication
 app.get(`${baseUrl}/energy/plans`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
-    // create an error list
-    let errList: ResponseErrorListV2 = buildErrorMessage(DsbStandardError.ADR_NOT_ACTIVE, "Some detail", undefined);
-    // keep adding errors to list
-    errList = buildErrorMessage(DsbStandardError.MISSING_REQUIRED_HEADER, "Additional Info", errList);
-    console.log(JSON.stringify(errList));
-    res.send(errList);
 });
 
-// this endpoint requires authentication
+// this endpoint requires scope 'energy:accounts.basic:read' which was  given
+// It will pass all middleware tests
 app.get(`${baseUrl}/energy/accounts`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
@@ -102,6 +97,8 @@ app.get(`${baseUrl}/energy/accounts`, (req: Request, res: Response, next: NextFu
 });
 
 // this endpoint requires authentication and a consented accountId
+// The accountId passed in here must metch one from the userService (accountsEnergy) above.
+// If it does not the cdrResourceValidator will create an error object
 app.get(`${baseUrl}/energy/accounts/:accountId`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
@@ -109,6 +106,7 @@ app.get(`${baseUrl}/energy/accounts/:accountId`, (req: Request, res: Response, n
 });
 
 // this endpoint is not a CDR endpoint
+// This will return an error object from the cdrEndpointValidator
 app.get(`/health`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
@@ -116,13 +114,16 @@ app.get(`/health`, (req: Request, res: Response, next: NextFunction) => {
 });
 
 // this endpoint requires authentication
+// The accountId passed in here must metch one from the userService (accountsBanking) above.
+// If it does not the cdrResourceValidator will create an error object
 app.get(`${baseUrl}/banking/accounts/:accountId`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
     res.send(st);
 });
 
-// this endpoint requires authentication
+// this endpoint requires scope 'banking:accounts.basic:read' which was not given
+// The cdrScopeValidator will raise an error
 app.get(`${baseUrl}/banking/accounts`, (req: Request, res: Response, next: NextFunction) => {
     let st = `Received request on ${port} for ${req.url}`;
     console.log(st);
