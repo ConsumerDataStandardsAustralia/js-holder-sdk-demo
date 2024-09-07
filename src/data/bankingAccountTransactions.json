@@ -1,0 +1,155 @@
+{
+    "links": {
+        "self": "https://localhost:3005/cds-au/v1/banking/accounts/d339f6db-cd8d-413f-95e4-ec9e8e9d806f/transactions"
+    },
+    "meta": {
+        "totalPages": 1,
+        "totalRecords": 7
+    },
+    "data": {
+        "transactions": [
+            {
+                "extendedData": {
+                    "service": "X2P1.01",
+                    "payer": "Heidi Cox"
+                },
+                "accountId": "d339f6db-cd8d-413f-95e4-ec9e8e9d806f",
+                "amount": "4439.65",
+                "description": "payment transaction at Durgan and Sons using card ending with ***(...6407) for XAU 365.41 in account ***06028839",
+                "isDetailAvailable": true,
+                "reference": "694654273",
+                "status": "POSTED",
+                "type": "OTHER",
+                "transactionId": "f4ba8e34-5bdb-4096-8913-b460aca9640e",
+                "postingDateTime": "2024-07-22T12:42:35.094Z",
+                "valueDateTime": "2024-06-24T10:56:12.444Z",
+                "apcaNumber": "907568",
+                "currency": "USD"
+            },
+            {
+                "extendedData": {
+                    "service": "X2P1.01",
+                    "payer": "Johnny Kelly"
+                },
+                "accountId": "d339f6db-cd8d-413f-95e4-ec9e8e9d806f",
+                "amount": "318.99",
+                "description": "payment transaction at Gleason - Fadel using card ending with ***(...6904) for SYP 219.10 in account ***60886501",
+                "isDetailAvailable": true,
+                "reference": "856048876",
+                "status": "POSTED",
+                "type": "OTHER",
+                "transactionId": "d37824d5-33ff-415e-b56e-66bb36693b07",
+                "postingDateTime": "2024-07-25T13:32:46.077Z",
+                "apcaNumber": "330339",
+                "currency": "AUD"
+            },
+            {
+                "extendedData": {
+                    "service": "X2P1.01",
+                    "payer": "Angelica Beatty"
+                },
+                "accountId": "d339f6db-cd8d-413f-95e4-ec9e8e9d806f",
+                "amount": "2254.79",
+                "description": "invoice transaction at O'hara Corp using card ending with ***(...0681) for GYD 612.98 in account ***19927382",
+                "isDetailAvailable": false,
+                "reference": "188527528",
+                "status": "POSTED",
+                "type": "OTHER",
+                "transactionId": "33ed6543-ae4d-4ce8-a938-992c61477a48",
+                "postingDateTime": "2024-07-18T21:02:56.659Z",
+                "currency": "GBP"
+            },
+            {
+                "extendedData": {
+                    "service": "X2P1.01",
+                    "extensionUType": "x2p101Payload",
+                    "x2p101Payload": {
+                        "extendedDescription": "Southwest beyond Mini snooper Southeast Account",
+                        "endToEndId": "9f9ccc6e-9b87-49a8-9e21-25490408be26",
+                        "purposeCode": "QEAG"
+                    },
+                    "payer": "Luis Schroeder"
+                },
+                "accountId": "d339f6db-cd8d-413f-95e4-ec9e8e9d806f",
+                "amount": "4013.89",
+                "description": "payment transaction at Watson, Braun and Bartell using card ending with ***(...6802) for GEL 281.13 in account ***74872985",
+                "isDetailAvailable": true,
+                "reference": "218354315",
+                "status": "POSTED",
+                "type": "OTHER",
+                "transactionId": "5d9c8299-6870-4dd1-b75f-c7ebabe431e4",
+                "postingDateTime": "2024-06-28T22:27:22.835Z",
+                "apcaNumber": "651057"
+            },
+            {
+                "extendedData": {
+                    "service": "X2P1.01",
+                    "extensionUType": "x2p101Payload",
+                    "x2p101Payload": {
+                        "extendedDescription": "distributed radian Program generate Steel Intuitive",
+                        "endToEndId": "a531a0bd-1642-48a1-ad32-22c819815d70",
+                        "purposeCode": "NJBK"
+                    },
+                    "payer": "Dr. Santiago Bosco"
+                },
+                "accountId": "d339f6db-cd8d-413f-95e4-ec9e8e9d806f",
+                "amount": "3528.74",
+                "description": "invoice transaction at Robertson, Reid and O'hara using card ending with ***(...7958) for MKD 808.14 in account ***46287591",
+                "isDetailAvailable": false,
+                "reference": "",
+                "status": "POSTED",
+                "type": "OTHER",
+                "transactionId": "c620b8f0-9ccb-465e-8123-8518d2691066",
+                "postingDateTime": "2024-06-30T08:24:52.181Z",
+                "executionDateTime": "2024-01-20T12:49:36.782Z",
+                "apcaNumber": "572618"
+            },
+            {
+                "extendedData": {
+                    "service": "X2P1.01",
+                    "extensionUType": "x2p101Payload",
+                    "x2p101Payload": {
+                        "extendedDescription": "iure Northeast Human male Cadmium Rolls",
+                        "endToEndId": "dbe494df-0cfa-4f68-8167-c6597adda741",
+                        "purposeCode": "UTRW"
+                    },
+                    "payer": "Darrin Windler"
+                },
+                "accountId": "d339f6db-cd8d-413f-95e4-ec9e8e9d806f",
+                "amount": "2459.64",
+                "description": "payment transaction at Casper, Mccullough and Fisher using card ending with ***(...7205) for BSD 291.82 in account ***87278344",
+                "isDetailAvailable": false,
+                "reference": "531697775",
+                "status": "POSTED",
+                "type": "OTHER",
+                "transactionId": "940a08e6-235d-41d7-beda-2317dca0d4db",
+                "postingDateTime": "2024-08-02T21:08:51.137Z",
+                "executionDateTime": "2023-06-04T07:55:08.717Z",
+                "apcaNumber": "988204"
+            },
+            {
+                "extendedData": {
+                    "service": "X2P1.01",
+                    "extensionUType": "x2p101Payload",
+                    "x2p101Payload": {
+                        "extendedDescription": "National hacking Gallium siemens across Auto",
+                        "endToEndId": "ced0ad24-6cdf-4184-8fc8-7341e69da2d1",
+                        "purposeCode": "JJSC"
+                    },
+                    "payer": "Joy Hansen"
+                },
+                "accountId": "d339f6db-cd8d-413f-95e4-ec9e8e9d806f",
+                "amount": "4679.08",
+                "description": "invoice transaction at Cummings, Cole and Jackson using card ending with ***(...1435) for CUC 720.42 in account ***86184447",
+                "isDetailAvailable": false,
+                "reference": "611598095",
+                "status": "POSTED",
+                "type": "OTHER",
+                "transactionId": "ead94ff7-8dd0-43d5-bc6c-c8a64ae9e801",
+                "postingDateTime": "2024-07-24T21:03:37.347Z",
+                "executionDateTime": "2023-03-10T07:26:15.798Z",
+                "apcaNumber": "926900"
+            }
+        ]
+    }
+}
