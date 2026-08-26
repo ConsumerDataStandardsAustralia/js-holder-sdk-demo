@@ -63,7 +63,7 @@ Before you begin, ensure you have the following installed:
 
 Use the [DSB Postman collection](https://github.com/ConsumerDataStandardsAustralia/dsb-postman) (**`/src/postman/MiddlewareDemo.postman_collection.json`**) to test common scenarios, such as invalid headers. 
 
-Run the [Postman collection](https://www.postman.com/winter-shadow-541400/workspace/dsb-schema-tests) with the environment file in **`src/postman/MiddleWare Demo.postman_environment.json`**, which contains an JWT access token with scopes.
+Run the [Postman collection](https://www.postman.com/data-standards-body/workspace/cdr-tests) with the environment file in **`src/postman/MiddleWare Demo.postman_environment.json`**, which contains an JWT access token with scopes.
 
 ## Contributing Process
 
